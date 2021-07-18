@@ -1,0 +1,28 @@
+.mainStyle, .errorInput {
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    height: 28px;
+    padding: 5px 0 5px 15px;
+    border-radius: 5px;
+    transition: .3s;
+    font-size: 14px;
+    outline: none;
+    color: #ffffff;
+    background-color: #0c0c0c;
+}
+
+.mainStyle {
+    border: 1px solid #0c0c0c;
+}
+
+.errorInput {
+    border: 1px solid #f56c6c;
+}
+
+.mainStyle:focus {
+    border: 1px solid #333333;
+}
+
+.error {
+    margin: 10px;
+    color: #f56c6c;
+}

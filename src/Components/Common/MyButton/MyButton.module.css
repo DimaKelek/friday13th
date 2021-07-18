@@ -1,0 +1,38 @@
+.button_box {
+    margin-right: 10px;
+    display: inline-block;
+    font-family: Comic Sans MS, Comic Sans, cursive;
+}
+
+.button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-family: inherit;
+    background: cornflowerblue;
+    min-width: 50px;
+    margin-bottom: 10px;
+}
+
+.button:hover {
+    background: #1d49aa;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #cbd6ee;
+}
+
+.button:disabled {
+    color: #d2d5db;
+    background: #6c7589;
+    cursor: default;
+}
