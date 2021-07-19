@@ -12,7 +12,8 @@ export const Routes: React.FC<any> = props => {
     return (
         <div>
             <Switch>
-                <Route exact path={"/"} render={() => <Profile/>}/>
+                <Route exact path={"/"} render={() => <Redirect to={"/profile"}/>}/>
+                <Route path={"/profile"} render={() => <Profile/>}/>
                 <Route path={"/login"} render={() => <Login/>}/>
                 <Route path={"/registration"} render={() => <Registration/>}/>
                 <Route path={"/recovery"} render={() => <RecoveryPass/>}/>
