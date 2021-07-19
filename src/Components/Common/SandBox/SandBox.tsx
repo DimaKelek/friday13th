@@ -1,11 +1,11 @@
 import React, {useState} from "react";
-import {MyTextInput} from "../Common/MyTextInput/MyTextInput";
+import {MyTextInput} from "../MyTextInput/MyTextInput";
 import S from "./SandBox.module.css"
-import {MyButton} from "../Common/MyButton/MyButton";
-import {MyCheckbox} from "../Common/MyCheckbox/MyCheckbox";
-import {MyEditableSpan} from "../Common/MyEditableSpan/MyEditableSpan";
-import {MySelect} from "../Common/MySelect/MySelect";
-import {MyRadioButton} from "../Common/MyRadioButton/MyRadioButton";
+import {MyButton} from "../MyButton/MyButton";
+import {MyCheckbox} from "../MyCheckbox/MyCheckbox";
+import {MyEditableSpan} from "../MyEditableSpan/MyEditableSpan";
+import {MySelect} from "../MySelect/MySelect";
+import {MyRadioButton} from "../MyRadioButton/MyRadioButton";
 
 export const SandBox: React.FC = props => {
     const options = ["React", "Redux", "Typescript"]

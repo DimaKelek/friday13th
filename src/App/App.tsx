@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
-import {SandBox} from "../Components/SandBox/SandBox";
+import {HashRouter} from "react-router-dom";
+import {Routes} from "./Routes";
 
 export const App: React.FC<any> = props => {
     return (
         <div className="App">
-            <SandBox/>
+            <HashRouter>
+                <Routes/>
+            </HashRouter>
         </div>
     );
 }
