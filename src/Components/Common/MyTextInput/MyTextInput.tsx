@@ -7,11 +7,13 @@ type SuperInputTextPropsType = DefaultInputPropsType & {
     onEnter?: () => void
     error?: string
     errorClassName?: string
+    variant?: "light" | "dark" | "standard" | "purple"
 }
 
 export const MyTextInput: React.FC<SuperInputTextPropsType> = props => {
     const {type, onChange, onChangeText, onKeyPress, onEnter, error,
-        className, errorClassName, ...restProps} = props
+        className, errorClassName, variant = "standard", ...restProps} = props
+
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         onChange && onChange(e)
         onChangeText && onChangeText(e.currentTarget.value)
@@ -21,11 +23,11 @@ export const MyTextInput: React.FC<SuperInputTextPropsType> = props => {
         onEnter && e.key === 'Enter' && onEnter()
     }
 
-    const finalInputClassName = `${error ? S.errorInput : S.mainStyle} ${className}`
+    const finalInputClassName = `${S.input} ${variant ? S[variant] : className} ${error && S.errorInput}`
     const finalErrorClassName = `${S.error} ${errorClassName || ''}`
 
     return (
-        <>
+        <div className={S.textInput}>
             <input
                 type={'text'}
                 onChange={onChangeCallback}
@@ -35,6 +37,6 @@ export const MyTextInput: React.FC<SuperInputTextPropsType> = props => {
                 {...restProps}
             />
             {error && <span className={finalErrorClassName}>{error}</span>}
-        </>
+        </div>
     )
 }

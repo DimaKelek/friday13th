@@ -18,7 +18,8 @@ export const SandBox: React.FC = props => {
     const [rangeStart, setRangeStart] = useState<number>(0)
     const [rangeEnd, setRangeEnd] = useState<number>(100)
 
-    const error = text ? '' : 'error'
+    // const error = text ? '' : 'error'
+    const error = ""
     const showAlert = () => {
         if (error) {
             alert('введите текст...')
@@ -43,17 +44,28 @@ export const SandBox: React.FC = props => {
                         onChangeText={setText}
                         onEnter={showAlert}
                         error={error}
+                        variant={"light"}
                     />
                 </div>
             </div>
             <div className={S.button_box}>
                 <span>My Button</span>
-                <div><MyButton onClick={myButtonCallback}>Button</MyButton></div>
+                <div>
+                    <MyButton
+                        onClick={myButtonCallback}
+                        variant={"light"}
+                    >Button</MyButton>
+                </div>
             </div>
             <div className={S.reactCheckbox_box}>
                 <span>My ReactCheckbox</span>
                 <div><MyCheckbox checked={check} onChangeChecked={setCheck}>Test Label</MyCheckbox></div>
-                <div><MyButton onClick={checkboxTestCallback}>Test</MyButton></div>
+                <div>
+                    <MyButton
+                        onClick={checkboxTestCallback}
+                        variant={"dark"}
+                    >Test</MyButton>
+                </div>
             </div>
             <div className={S.editableSpan_box}>
                 <span>My EditableSpan</span>

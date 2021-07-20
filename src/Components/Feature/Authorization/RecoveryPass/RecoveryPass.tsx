@@ -7,7 +7,7 @@ type RecoveryPassPropsType = {
 
 export const RecoveryPass: React.FC<RecoveryPassPropsType> = props => {
     return (
-        <div>
+        <div className={S.recoveryPass}>
             <h2>Restore Password page</h2>
         </div>
     )

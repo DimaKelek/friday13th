@@ -7,7 +7,7 @@ type LoginPropsType = {
 
 export const Login: React.FC<LoginPropsType> = props => {
     return (
-        <div>
+        <div className={S.login}>
             <h2>Login page</h2>
         </div>
     )

@@ -7,7 +7,7 @@ type ProfilePropsType = {
 
 export const Profile: React.FC<ProfilePropsType> = props => {
     return (
-        <div>
+        <div className={S.profile}>
             <h2>Profile page</h2>
         </div>
     )

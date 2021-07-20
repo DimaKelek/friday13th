@@ -7,7 +7,7 @@ type RegistrationPropsType = {
 
 export const Registration: React.FC<RegistrationPropsType> = props => {
     return (
-        <div>
+        <div className={S.registration}>
             <h2>Registration page</h2>
         </div>
     )
