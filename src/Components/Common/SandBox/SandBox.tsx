@@ -6,12 +6,17 @@ import {MyCheckbox} from "../MyCheckbox/MyCheckbox";
 import {MyEditableSpan} from "../MyEditableSpan/MyEditableSpan";
 import {MySelect} from "../MySelect/MySelect";
 import {MyRadioButton} from "../MyRadioButton/MyRadioButton";
+import {MyRange} from "../Ranges/MyRange/MyRange";
+import {MyDoubleRange} from "../Ranges/MyDoubleRange/MyDoubleRange";
 
 export const SandBox: React.FC = props => {
     const options = ["React", "Redux", "Typescript"]
-    const [value, setValue] = useState<string>("Yooooooooo")
+    const [editLabel, setEditLabel] = useState<string>("Yooooooooo")
     const [select, setSelect] = useState<string>(options[0])
     const [text, setText] = useState<string>('')
+    const [check, setCheck] = useState<boolean>(false)
+    const [rangeStart, setRangeStart] = useState<number>(0)
+    const [rangeEnd, setRangeEnd] = useState<number>(100)
 
     const error = text ? '' : 'error'
     const showAlert = () => {
@@ -23,6 +28,9 @@ export const SandBox: React.FC = props => {
     }
     const myButtonCallback = () => {
         alert("Здароукиииииииииииии!!")
+    }
+    const checkboxTestCallback = () => {
+        alert("Value my checkbox: " + check)
     }
 
     return (
@@ -44,15 +52,16 @@ export const SandBox: React.FC = props => {
             </div>
             <div className={S.reactCheckbox_box}>
                 <span>My ReactCheckbox</span>
-                <div><MyCheckbox>Test Label</MyCheckbox></div>
+                <div><MyCheckbox checked={check} onChangeChecked={setCheck}>Test Label</MyCheckbox></div>
+                <div><MyButton onClick={checkboxTestCallback}>Test</MyButton></div>
             </div>
             <div className={S.editableSpan_box}>
                 <span>My EditableSpan</span>
                 <div>
                     <MyEditableSpan
-                        value={value}
-                        onChangeText={setValue}
-                        spanProps={{children: value ? undefined : 'enter text...'}}
+                        value={editLabel}
+                        onChangeText={setEditLabel}
+                        spanProps={{children: editLabel ? undefined : 'enter text...'}}
                     />
                 </div>
             </div>
@@ -74,6 +83,22 @@ export const SandBox: React.FC = props => {
                         options={options}
                         value={select}
                         onChangeOption={setSelect}
+                    />
+                </div>
+            </div>
+            <div className={S.range}>
+                <span>My Ranges</span>
+                <div>
+                    <span>Start value: {rangeStart}</span>
+                    <span>End value: {rangeEnd}</span>
+                    <MyRange
+                        value={rangeStart}
+                        onChangeRange={setRangeStart}
+                    />
+                    <MyDoubleRange
+                        value={[rangeStart, rangeEnd]}
+                        onChangeRangeFirst={setRangeStart}
+                        onChangeRangeSecond={setRangeEnd}
                     />
                 </div>
             </div>

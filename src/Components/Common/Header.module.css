@@ -7,14 +7,12 @@
 .menu_container {
     display: flex;
     position: absolute;
-    /*right: -390px;*/
     right: -50%;
-    transition-duration: .8s;
+    transition: 1.2s;
 }
 
 .menu_container:hover {
     right: 0;
-    transition: .8s;
 }
 
 .menu_container a {
