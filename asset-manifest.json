@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/friday13th/static/css/main.a7504651.chunk.css",
-    "main.js": "/friday13th/static/js/main.31edb346.chunk.js",
-    "main.js.map": "/friday13th/static/js/main.31edb346.chunk.js.map",
-    "runtime-main.js": "/friday13th/static/js/runtime-main.7d19466c.js",
-    "runtime-main.js.map": "/friday13th/static/js/runtime-main.7d19466c.js.map",
-    "static/js/2.a0dc490e.chunk.js": "/friday13th/static/js/2.a0dc490e.chunk.js",
-    "static/js/2.a0dc490e.chunk.js.map": "/friday13th/static/js/2.a0dc490e.chunk.js.map",
-    "static/js/3.7f56f375.chunk.js": "/friday13th/static/js/3.7f56f375.chunk.js",
-    "static/js/3.7f56f375.chunk.js.map": "/friday13th/static/js/3.7f56f375.chunk.js.map",
+    "main.js": "/friday13th/static/js/main.df843958.chunk.js",
+    "main.js.map": "/friday13th/static/js/main.df843958.chunk.js.map",
+    "runtime-main.js": "/friday13th/static/js/runtime-main.d9c6642b.js",
+    "runtime-main.js.map": "/friday13th/static/js/runtime-main.d9c6642b.js.map",
+    "static/js/2.17dcb403.chunk.js": "/friday13th/static/js/2.17dcb403.chunk.js",
+    "static/js/2.17dcb403.chunk.js.map": "/friday13th/static/js/2.17dcb403.chunk.js.map",
+    "static/js/3.2b2eb12b.chunk.js": "/friday13th/static/js/3.2b2eb12b.chunk.js",
+    "static/js/3.2b2eb12b.chunk.js.map": "/friday13th/static/js/3.2b2eb12b.chunk.js.map",
     "index.html": "/friday13th/index.html",
     "static/css/main.a7504651.chunk.css.map": "/friday13th/static/css/main.a7504651.chunk.css.map",
-    "static/js/2.a0dc490e.chunk.js.LICENSE.txt": "/friday13th/static/js/2.a0dc490e.chunk.js.LICENSE.txt",
+    "static/js/2.17dcb403.chunk.js.LICENSE.txt": "/friday13th/static/js/2.17dcb403.chunk.js.LICENSE.txt",
     "static/media/chakres.d0843979.png": "/friday13th/static/media/chakres.d0843979.png",
     "static/media/css3.b0696b45.svg": "/friday13th/static/media/css3.b0696b45.svg",
     "static/media/html5.10080bf9.svg": "/friday13th/static/media/html5.10080bf9.svg",
@@ -21,9 +21,9 @@
     "static/media/typescript.b6a67c48.svg": "/friday13th/static/media/typescript.b6a67c48.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.7d19466c.js",
-    "static/js/2.a0dc490e.chunk.js",
+    "static/js/runtime-main.d9c6642b.js",
+    "static/js/2.17dcb403.chunk.js",
     "static/css/main.a7504651.chunk.css",
-    "static/js/main.31edb346.chunk.js"
+    "static/js/main.df843958.chunk.js"
   ]
 }
