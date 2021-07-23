@@ -5,13 +5,15 @@ import {AuthActionsType, authReducer} from "./auth-reducer";
 import {RegistrationActionsType, registrationReducer} from "./registration-reducer";
 import {NewPassActionsType, newPassReducer} from "./new-pass-reducer";
 import {RecoveryPassActionsType, recoveryPassReducer} from "./recovery-pass-reducer";
+import {AppActionsType, appReducer} from "./app-reducer";
 
 const rootReducer = combineReducers({
     profile: profileReducer,
     auth: authReducer,
     registration: registrationReducer,
     newPass: newPassReducer,
-    recovery: recoveryPassReducer
+    recovery: recoveryPassReducer,
+    app: appReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
@@ -25,6 +27,7 @@ export type AllAppActionsType =
     | NewPassActionsType
     | RegistrationActionsType
     | RecoveryPassActionsType
+    | AppActionsType
 
 //@ts-ignore
 window.store = store
