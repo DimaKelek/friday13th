@@ -3,7 +3,7 @@ import './App.css';
 import {HashRouter} from "react-router-dom";
 import {Routes} from "./Routes";
 import {Header} from "../Components/Common/Header";
-//2
+//раз два три
 export const App: React.FC<any> = props => {
     return (
         <div className="App">
