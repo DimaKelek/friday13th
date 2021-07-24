@@ -8,6 +8,7 @@ import {Redirect} from "react-router-dom";
 import FormGroup from "@material-ui/core/FormGroup";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import {signup} from "../../../../Store/registration-reducer";
 
 type RegistrationPropsType = {}
 
@@ -15,6 +16,11 @@ type SignupFormErrorType = {
     email?: string
     password?: string
     confirmedPassword?: string
+}
+
+export type SignupFormDataType = {
+    email: string
+    password: string
 }
 
  // TODO: add common fields validators
@@ -55,8 +61,8 @@ export const Registration: React.FC<RegistrationPropsType> = props => {
         },
 
         onSubmit: values => {
-//            dispatch(signup(values))
-            signupForm.resetForm()
+            dispatch(signup({email: values.email, password: values.password}))
+          //  signupForm.resetForm()
         },
     })
 
