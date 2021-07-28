@@ -1,3 +1,24 @@
-.recoveryPass {
-    min-height: 100vh;
+.instruction {
+    display: block;
+    padding: 5px 25px;
+}
+
+.button_box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+}
+
+img {
+    display: block;
+    margin: 100px auto 20px;
+}
+
+.message {
+    display: block;
+    padding: 5px 25px;
+    text-align: center;
 }
