@@ -3,9 +3,9 @@ import S from "./MyButton.module.css"
 
 type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 type MyButtonPropsType = DefaultButtonPropsType & {
-    variant?: "light" | "dark" | "standard" | "purple"
+    variant?: ElementColorVariants
 }
-
+export type ElementColorVariants = "light" | "dark" | "standard" | "purple"
 export const MyButton: React.FC<MyButtonPropsType> = props => {
     const {disabled, onClick, className, children, variant = "standard", ...restProps} = props
     const finalClassName = `${S.button} ${variant ? S[variant] : className}`
