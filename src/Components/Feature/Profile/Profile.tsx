@@ -36,7 +36,7 @@ export const Profile: React.FC<ProfilePropsType> = props => {
           </p>
         </div>
         <div>
-          <Button color={'primary'}
+          <Button className={S.button} color={'primary'}
                   variant={'contained'}
                   onClick={logoutHandler}>Logout</Button>
         </div>

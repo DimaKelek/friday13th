@@ -1,7 +1,7 @@
 .login {
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 .label {
@@ -17,15 +17,16 @@
 
 .singIn {
   font-size: large;
-  font-weight: 500;
-  color: #0d82c6;
+  font-weight: 600;
+  color: #2D2E46
 }
 
 .text {
   display: flex;
   justify-content: center;
+  font-weight: 600;
   padding-bottom: 20px;
-  color: #2D2E46;
+  color: #636363;
 }
 
 .singUp {
@@ -34,7 +35,7 @@
   text-decoration: none;
   font-size: large;
   font-weight: 500;
-  padding-bottom: 20px;
+  padding-bottom: 25px;
   color: #21268F;
   cursor: pointer;
 }
@@ -61,5 +62,5 @@
 }
 
 .formControl {
-  width: 80%;
+  width: 88%;
 }
