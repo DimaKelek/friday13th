@@ -10,11 +10,10 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
-  FormLabel,
   TextField,
   Button,
   Grid,
-  Paper
+  Paper, FormLabel
 } from '@material-ui/core'
 
 
@@ -61,11 +60,15 @@ export const Login = () => {
   }
 
   return (
-  <Grid container justify="center">
-    <Grid item xs={4}>
-      <Paper elevation={3} style={{marginTop: '100px'}}>
+  <Grid container justifyContent="center">
+    <Grid item xs={3}>
+      <Paper elevation={3} style={{marginTop: '100px', marginBottom: '10px'}} >
         <form onSubmit={formik.handleSubmit} className={s.login}>
-          <FormControl>
+          <FormControl className={s.formControl}>
+            <FormLabel className={s.label}>
+              <h3 className={s.h3}>IT - Incubator</h3>
+              <p className={s.p}>Sing in</p>
+            </FormLabel>
             <FormGroup>
               <TextField
                 label="Email"
@@ -84,12 +87,15 @@ export const Login = () => {
               {formik.touched.password && <div style={{color: 'red'}}>{formik.errors.password}</div>}
 
               <FormControlLabel
+                className={s.formMe}
                 label={'Remember me'}
                 control={
-                  <Checkbox {...formik.getFieldProps('rememberMe')}/>}
+                  <Checkbox  {...formik.getFieldProps('rememberMe')}/>}
 
               />
-              <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
+              <Button className={s.button}
+                      type={'submit'} variant={'contained'}
+                      color={'primary'}>Login</Button>
             </FormGroup>
           </FormControl>
         </form>

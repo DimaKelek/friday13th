@@ -41,7 +41,8 @@ export const login = (data: LoginDataType): AppThunk => async (dispatch: Dispatc
   } catch (e) {
     const error = e.response
       ? e.response.data.error
-      : (e.message + ', more details in the console');
+      : (e.message + ', more details in the console')
+    console.log(error)
   }
 }
 
@@ -53,7 +54,8 @@ export const logout = (): AppThunk => async (dispatch: Dispatch<AuthActionsType>
   } catch (e) {
     const error = e.response
       ? e.response.data.error
-      : (e.message + ', more details in the console');
+      : (e.message + ', more details in the console')
+    console.log(error)
   }
 }
 
@@ -65,7 +67,8 @@ export const me = (): AppThunk => async (dispatch: Dispatch<AuthActionsType>) =>
   } catch (e) {
     const error = e.response
       ? e.response.data.error
-      : (e.message + ', more details in the console');
+      : (e.message + ', more details in the console')
+    console.log(error)
   }
 }
 
