@@ -1,3 +1,21 @@
+.avatar img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  padding: 10px;
+}
+
 .profile {
-    min-height: 100vh;
+  display: flex;
+  padding: 15px;
+}
+
+.profileWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.name {
+  margin-bottom: 15px;
 }

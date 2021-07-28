@@ -5,6 +5,7 @@ import {AppStoreType} from '../../../Store/store';
 import {UserDataType} from '../../../API/authAPI';
 import {Redirect} from 'react-router-dom';
 import {logout} from '../../../Store/auth-reducer';
+import {Button} from '@material-ui/core';
 
 type ProfilePropsType = {}
 
@@ -24,15 +25,21 @@ export const Profile: React.FC<ProfilePropsType> = props => {
 
   return (
     <div className={S.profile}>
-      <h4>Profile page!</h4>
-      <div>
-        {/*<img src={userData.avatar} alt='avatar'/>*/}
-      </div>
-      <div>
-        {userData.name}
-      </div>
-      <div>
-        <button onClick={logoutHandler}>log out</button>
+      <div className={S.profileWrap}>
+        <h4>Profile page!</h4>
+        <div className={S.avatar}>
+          <img src={userData.avatar} alt='avatar'/>
+        </div>
+        <div className={S.name}>
+          <p>
+            {userData.name}
+          </p>
+        </div>
+        <div>
+          <Button color={'primary'}
+                  variant={'contained'}
+                  onClick={logoutHandler}>Logout</Button>
+        </div>
       </div>
     </div>
   )
