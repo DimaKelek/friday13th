@@ -15,8 +15,38 @@
   color: black;
 }
 
-.p {
+.singIn {
+  font-size: large;
+  font-weight: 500;
   color: #0d82c6;
+}
+
+.text {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+  color: #2D2E46;
+}
+
+.singUp {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  font-size: large;
+  font-weight: 500;
+  padding-bottom: 20px;
+  color: #21268F;
+  cursor: pointer;
+}
+
+.forgotPass {
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: none;
+  font-size: 15px;
+  color: #2D2E46;
+  cursor: pointer;
+  margin-bottom: 30px;
 }
 
 .button {
@@ -26,8 +56,8 @@
 }
 
 .formMe {
-  padding-top: 20px !important;
-  padding-bottom: 20px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 .formControl {
