@@ -3,6 +3,7 @@
     flex-direction: row;
     justify-content: flex-end;
     position: relative;
+    height: 61px;
 }
 .menu_container {
     display: flex;

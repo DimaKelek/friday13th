@@ -1,3 +1,42 @@
 .registration {
-    min-height: 100vh;
+    margin: 5% auto 5%;
+    width: 350px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 25px;
 }
+
+.form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.row:first-child {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+
+.row > button:last-child{
+    margin-left: 20px;
+}
+
+
+@keyframes blinking {
+    50% {
+        border-color: #aa0000
+    }
+    100% {
+        border-color: #ff0000;
+    }
+}
+
+
