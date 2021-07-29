@@ -1,9 +1,3 @@
-.option {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
 .checkInput {
     position: absolute;
     -webkit-appearance: none;

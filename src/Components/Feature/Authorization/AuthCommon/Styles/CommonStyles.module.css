@@ -63,3 +63,12 @@ form {
     color: #21268f;
     transition: .3s;
 }
+
+.button_box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+}

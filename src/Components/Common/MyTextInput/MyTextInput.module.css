@@ -1,5 +1,6 @@
 .textInput {
     height: 73px;
+    margin-bottom: 10px;
 }
 
 .input {
@@ -13,6 +14,7 @@
 }
 
 .error {
+    position: absolute;
     margin: 10px;
     color: #f56c6c;
     display: block;

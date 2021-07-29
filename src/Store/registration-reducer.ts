@@ -1,52 +1,38 @@
-import {Dispatch} from "redux";
 import {SignupFormDataType} from "../Components/Feature/Authorization/Registration/Registration";
-import {AuthRegisterResponseType, RegisterAPI} from "../Api/register-api";
-import {AxiosResponse} from "axios";
-
-export type TRegistrationStatus = 'Registring...' | 'Idle' | 'Succeeded!' | 'Failed!'
+import {RegisterAPI} from "../Api/register-api";
+import {AppThunk} from "./store";
+import {handleServerNetworkError} from "../Components/Feature/Authorization/AuthCommon/utils/errorHandler";
+import {setAppStatus} from "./app-reducer";
 
 const initialState = {
-    registrationStatus: 'Idle' as TRegistrationStatus,
-    registrationFormError: '',
+    register: false
 }
 
 export const registrationReducer = (state: RegistrationStateType = initialState, action: RegistrationActionsType): RegistrationStateType => {
     switch (action.type) {
         case 'REGISTRATION/SET-STATUS':
-            return {...state, ...action.payload}
-        case 'REGISTRATION/SET-ERROR':
-            return {...state, ...action.payload}
+            return {...state, register: action.status}
         default:
             return state
     }
 }
 
 // actions
-
-export const setRegistrationStatus = (status: TRegistrationStatus) => {
-    return { type: 'REGISTRATION/SET-STATUS', payload: {registrationStatus: status}} as const
-}
-
-export const setRegistrationFormError = (error: string) => {
-    return { type: 'REGISTRATION/SET-ERROR', payload: {registrationFormError: error}} as const
-}
+export const setRegistrationStatus = (status: boolean) =>
+    ({type: 'REGISTRATION/SET-STATUS', status} as const)
 
 // thunks
-export const signup = (formData: SignupFormDataType) => async (dispatch: Dispatch) => {
-    dispatch(setRegistrationStatus('Registring...'))
+export const signup = (formData: SignupFormDataType): AppThunk => async dispatch => {
     try {
-        const response: AxiosResponse<AuthRegisterResponseType> = await RegisterAPI.signup(formData)
-        if (response.data.error) {
-            dispatch(setRegistrationFormError(response.data.error))
-        }
-        else dispatch(setRegistrationStatus('Succeeded!'))
+        dispatch(setAppStatus('loading'))
+        await RegisterAPI.signup(formData)
+        dispatch(setRegistrationStatus(true))
+        dispatch(setAppStatus('succeeded'))
     }
     catch (e) {
-        dispatch(setRegistrationStatus('Failed!'))
+       handleServerNetworkError(e, dispatch)
     }
 }
 // types
 type RegistrationStateType = typeof initialState
-type SetRegistrationStatusType = ReturnType<typeof setRegistrationStatus>
-type SetRegistrationFormErrorType = ReturnType<typeof setRegistrationFormError>
-export type RegistrationActionsType = SetRegistrationStatusType | SetRegistrationFormErrorType
+export type RegistrationActionsType = ReturnType<typeof setRegistrationStatus>

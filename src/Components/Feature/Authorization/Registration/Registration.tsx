@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {useFormik} from 'formik';
 import S from "./Registration.module.css"
+import Sc from "../AuthCommon/Styles/CommonStyles.module.css"
 import {useDispatch, useSelector} from "react-redux";
-import {Redirect} from "react-router-dom";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import {setRegistrationFormError, signup} from "../../../../Store/registration-reducer";
-import withStyles from "@material-ui/core/styles/withStyles";
+import {NavLink, Redirect} from "react-router-dom";
+import {signup} from "../../../../Store/registration-reducer";
 import {AppStoreType} from "../../../../Store/store";
+import {MyButton} from "../../../Common/MyButton/MyButton";
+import {MyTextInput} from "../../../Common/MyTextInput/MyTextInput";
+import {RequestStatusType} from "../../../../Store/app-reducer";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 type RegistrationPropsType = {}
 
@@ -22,17 +24,11 @@ export type SignupFormDataType = {
     password: string
 }
 
-// TODO: add common fields validators
-
-
 export const Registration: React.FC<RegistrationPropsType> = props => {
-    const [isAuth, setIsAuth] = useState(false) // TODO: get isAuth prop from authReducer
-    const [signupCancelled, cancelSignup] = useState(false)
-    const status = useSelector<AppStoreType, string>((state => state.registration.registrationStatus))
-    const cancelRegistration = () => {
-        cancelSignup(true)
-    }
+    const status = useSelector<AppStoreType, RequestStatusType>(state => state.app.status)
+    const register = useSelector<AppStoreType, boolean>(state => state.registration.register)
     const dispatch = useDispatch()
+
     const signupForm = useFormik({
         initialValues: {
             email: '',
@@ -44,136 +40,71 @@ export const Registration: React.FC<RegistrationPropsType> = props => {
             if (!formData.email) {
                 errors.email = 'Email is required';
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formData.email)) {
-                errors.email = 'Invalid email address. Please try again';
+                errors.email = 'Invalid email address.';
             }
             if (!formData.password) {
                 errors.password = 'Password is required'
             } else if (formData.password.length < 8) {
-                errors.password = 'Password must be at least 8 characters'
+                errors.password = 'Password must be at least 8 symbols'
             }
             if (formData.password && !formData.confirmedPassword) {
                 errors.confirmedPassword = 'Confirm your password'
             } else if (formData.password !== formData.confirmedPassword) {
-                errors.confirmedPassword = 'You entered two different passwords. Please try again'
+                errors.confirmedPassword = 'You entered two different passwords.'
             }
             return errors;
         },
-
         onSubmit: values => {
-            dispatch(signup({email: values.email, password: values.password}))
+            if(values.password === values.confirmedPassword) {
+                dispatch(signup({email: values.email, password: values.password}))
+                signupForm.resetForm()
+            }
         },
     })
 
-    useEffect(() => {
-        if (status === "Succeeded!") signupForm.resetForm()
-    }, [])
-
-    if (Object.values(signupForm.errors).length > 0 && signupForm.isSubmitting) {
-        let errorsArr = Object.values(signupForm.errors)
-        errorsArr.length > 1
-            ? dispatch(setRegistrationFormError('Fill all fields correctly'))
-            : dispatch(setRegistrationFormError(errorsArr[0]))
-    }
-
-    if (signupCancelled) {
+    if (register) {
         return <Redirect to={'/login'}/>
     }
-    if (isAuth) {
-        return <Redirect to={'/'}/>
-    }
     return (
-        <div className={S.registration}>
-            <div className={S.formContainer}>
-                <form onSubmit={signupForm.handleSubmit}
-                      className={S.form}
-                      autoComplete={'off'}>
-                    <div className={S.row}>
-                        <h2>
-                            <span>Sign Up</span>
-                            {/*<span style={{opacity: 0.04}}>, bitch!</span>*/}
-                        </h2>
-                    </div>
-                    <div className={S.row}>
-                        <CTextField error={!!signupForm.errors.email && signupForm.touched.email}
-                            variant="outlined"
-                            label="Email"
-                            margin="normal"
-                            name={'email'}
-                            onChange={signupForm.handleChange}
-                            onBlur={signupForm.handleBlur}
-                            value={signupForm.values.email}
+        <div className={Sc.page_container}>
+            <div className={Sc.form_container}>
+                <h3>It-incubator</h3>
+                <h4>Sign Up</h4>
+                <form onSubmit={signupForm.handleSubmit} className={S.form} autoComplete={'off'}>
+                    <div className={Sc.fields}>
+                        <MyTextInput
+                            error={signupForm.touched.email ? signupForm.errors.email : null}
+                            {...signupForm.getFieldProps('email')}
+                            variant={"light"}
+                            placeholder={"Email"}
+                            style={{minWidth: "300px"}}
                         />
-                    </div>
-                    <div className={S.row}>
-                        <CTextField error={!!signupForm.errors.password && signupForm.touched.password}
-                            variant="outlined"
-                            label="Password"
+                        <MyTextInput
                             type="password"
-                            margin="normal"
-                            name={'password'}
-                            onChange={signupForm.handleChange}
-                            onBlur={signupForm.handleBlur}
-                            value={signupForm.values.password}
+                            error={signupForm.touched.password ? signupForm.errors.password : null}
+                            {...signupForm.getFieldProps('password')}
+                            variant={"light"}
+                            placeholder={"Password"}
+                            style={{minWidth: "300px"}}
                         />
-                    </div>
-                    <div className={S.row}>
-                        <CTextField error={!!signupForm.errors.confirmedPassword && signupForm.touched.confirmedPassword}
-                            variant="outlined"
-                            label="Confirm password"
+                        <MyTextInput
                             type="password"
-                            margin="normal"
-                            name={'confirmedPassword'}
-                            onChange={signupForm.handleChange}
-                            onBlur={signupForm.handleBlur}
-                            value={signupForm.values.confirmedPassword}
+                            error={signupForm.touched.confirmedPassword ? signupForm.errors.confirmedPassword : null}
+                            {...signupForm.getFieldProps('confirmedPassword')}
+                            variant={"light"}
+                            placeholder={"Confirm password"}
+                            style={{minWidth: "300px"}}
                         />
                     </div>
-                    <div className={S.row}>
-                        <Button onClick={cancelRegistration}
-                                variant={'contained'}
-                                color={'secondary'}>
-                            Cancel
-                        </Button>
-                        <Button type={'submit'}
-                                variant={'contained'}
-                                color={'primary'}>
-                            Sign Up
-                        </Button>
-                    </div>
+                    {status === "loading"
+                        ? <CircularProgress/>
+                        : <div>
+                            <NavLink to={'/login'}><MyButton type={'button'} variant={"light"}>Cancel</MyButton></NavLink>
+                            <MyButton type={'submit'} variant={"purple"}>Sign Up</MyButton>
+                        </div>
+                    }
                 </form>
             </div>
         </div>
     )
 }
-
-const CTextField = withStyles({
-    root: {
-        '& label.Mui-focused': {
-            color: '#000',
-
-        },
-        '& .MuiInput-underline:after': {
-            borderBottomColor: '#000',
-            borderWidth: '3px',
-        },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                color: '#000',
-                borderColor: '#000',
-                borderWidth: '3px',
-            },
-            '&:hover fieldset': {
-                borderColor: '#000',
-                borderWidth: '3px',
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: '#000',
-                borderWidth: '3px',
-            },
-            '&.Mui-error fieldset': {
-                borderColor: '#ff0000',
-                animation: 'blinking 1s infinite',
-            }
-        },
-    },
-})(TextField)

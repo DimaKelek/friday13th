@@ -14,7 +14,7 @@ export const MyCheckbox: React.FC<NeonCheckboxPropsType> = props => {
         onChange && onChange(e)
         onChangeChecked && onChangeChecked(e.currentTarget.checked)
     }
-    const labelCheckbox = `${S.check} ${S.option}`
+    const labelCheckbox = `${S.check}`
 
     return (
         <label className={labelCheckbox}>
