@@ -1,3 +1,66 @@
 .login {
-    min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.h3 {
+  padding: 20px;
+  color: black;
+}
+
+.singIn {
+  font-size: large;
+  font-weight: 600;
+  color: #2D2E46
+}
+
+.text {
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  padding-bottom: 20px;
+  color: #636363;
+}
+
+.singUp {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  font-size: large;
+  font-weight: 500;
+  padding-bottom: 25px;
+  color: #21268F;
+  cursor: pointer;
+}
+
+.forgotPass {
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: none;
+  font-size: 15px;
+  color: #2D2E46;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+
+.button {
+  border-radius: 20px !important;
+  margin-bottom: 20px !important;
+  margin-top: 25px !important;
+}
+
+.formMe {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.formControl {
+  width: 88%;
 }
