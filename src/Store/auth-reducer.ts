@@ -32,7 +32,6 @@ export const login = (data: LoginDataType): AppThunk => async dispatch => {
         dispatch(setAppStatus('loading'))
         const response = await authAPI.login(data)
         dispatch(setUserData(response.data))
-        dispatch(me())
         dispatch(setAppStatus('succeeded'))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
