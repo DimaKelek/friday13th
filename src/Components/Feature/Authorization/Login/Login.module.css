@@ -23,3 +23,8 @@
     top: 45px;
     left: 70px;
 }
+
+.button {
+  padding-right: 40px !important;
+  padding-left: 40px !important;
+}
