@@ -29,9 +29,9 @@ export const NewPassContainer = () => {
                     errors.password = "Password is required"
                 } else if (values.password.length < 8) {
                     errors.password = "Password should be more 7 symbols"
-                } else if(values.token === "") {
+                } /*else if(values.token === "") {
                     errors.token = "Recovery token is required"
-                }
+                }*/
                 return errors;
             },
             onSubmit: values => {
