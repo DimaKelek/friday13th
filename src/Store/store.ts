@@ -5,13 +5,15 @@ import {AuthActionsType, authReducer} from "./auth-reducer";
 import {RegistrationActionsType, registrationReducer} from "./registration-reducer";
 import {RecoveryPassActionsType, recoveryPassReducer} from "./recovery-pass-reducer";
 import {AppActionsType, appReducer} from "./app-reducer";
+import {cardpacksReducer} from "./cardpacks-reducer";
 
 const rootReducer = combineReducers({
     profile: profileReducer,
     auth: authReducer,
     registration: registrationReducer,
     recovery: recoveryPassReducer,
-    app: appReducer
+    cardpacks: cardpacksReducer,
+    app: appReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))

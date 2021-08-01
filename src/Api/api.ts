@@ -1,17 +1,17 @@
 import axios from "axios";
 import {ForgotPasswordRequest, RecoveryRequestType} from "../Store/recovery-pass-reducer";
 
-const instanse = axios.create({
+export const instance = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0/",
     withCredentials: true
 })
 
 export const authAPI = {
     forgot(data: ForgotPasswordRequest) {
-        return instanse.post<ResponseType>(`/auth/forgot`, data)
+        return instance.post<ResponseType>(`/auth/forgot`, data)
     },
     recoveryPass(data: RecoveryRequestType) {
-        return instanse.post<ResponseType>(`/auth/set-new-password`, data)
+        return instance.post<ResponseType>(`/auth/set-new-password`, data)
     }
 }
 

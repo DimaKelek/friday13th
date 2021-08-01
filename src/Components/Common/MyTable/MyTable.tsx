@@ -1,31 +1,32 @@
 import React, {CSSProperties, FC} from 'react';
 import S from './MyTable.module.css'
+import MyTableHeader from "./Components/MyTableHeader";
+import MyTableRow from "./Components/MyTableRow";
+import {MyButton} from "../MyButton/MyButton";
 
-type MyTablePropsType = {};
-const MyTable: FC<MyTablePropsType> = ({}) => {
-    const rowStyle = (): CSSProperties => {
-        return {gridTemplateColumns: '3fr 1fr 2fr 2fr 1fr 1fr 1fr'}
-    }
-    const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(d => (
-        <div key={d} className={S.table__row} style={rowStyle()}>
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>6</div>
-            <div>7</div>
-        </div>))
+type MyTablePropsType = {
+    cellData: Array<Array<string | React.ReactNode>>
+    headerTitles?: Array<string | React.ReactNode>
+    columnSchema?: string
+    columnWeights?: Array<string>
+    rowMinHeight?: string
+}
+const MyTable: FC<MyTablePropsType> = (props) => {
+    const {
+        cellData,
+        headerTitles = ['1', '2',],
+        columnSchema = `'h1 h2'`,
+        columnWeights = ['1fr', '1fr',],
+        rowMinHeight = '48px',
+        } = props
+
+    const tableRows = cellData.map((el, i) => (
+        <MyTableRow key={i} cells={el} columnWeights={columnWeights}/>
+    ))
     return (
-        <div className={S.table}>
-            <div className={S.table__row__header} style={rowStyle()}>
-                <div>Name</div>
-                <div>Cards</div>
-                <div>Last Updated</div>
-                <div>Created by</div>
-                <div>Actions</div>
-            </div>
-            {data}
+        <div className={S.table}  {...props}>
+            <MyTableHeader headerTitles={headerTitles} columnWeights={columnWeights} columnSchema={columnSchema}/>
+            {tableRows}
         </div>
     )
 }
