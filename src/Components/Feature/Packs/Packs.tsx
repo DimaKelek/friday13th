@@ -9,9 +9,9 @@ import MyTableHeader from "../../Common/MyTable/Components/MyTableHeader";
 import MyTableRow from "../../Common/MyTable/Components/MyTableRow";
 
 type PacksPropsType = {
-
+    data: any
 }
-export const Packs: FC<PacksPropsType> = ({}) => {
+export const Packs: FC<PacksPropsType> = ({data}) => {
     const dataB = [
         {
 
@@ -96,11 +96,11 @@ export const Packs: FC<PacksPropsType> = ({}) => {
         <MyButton>Last Updated</MyButton>,
         'Created by',
         'Actions']
-    const cellData = dataB.map(el => [
+    const cellData = data.map((el: any) => [
         el.name,
         el.cardsCount,
-        el.created,
         el.updated,
+        el.user_name,
         <MyButton>Delete</MyButton>,
         <MyButton>Edit</MyButton>,
         <MyButton>Learn</MyButton>,])

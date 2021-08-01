@@ -5,7 +5,7 @@ import {instance} from "./api";
 
 export const cardpacksAPI = {
     getCardPacks(data: GetCardPacksRequestType) {
-        return instance.post<GetCardPacksResponseType>(`cards/pack`, data)
+        return instance.get<GetCardPacksResponseType>(`cards/pack`, {params: {...data}})
     },
 }
 

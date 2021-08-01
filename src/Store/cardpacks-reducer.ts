@@ -41,14 +41,25 @@ const initialState = {
     filterMax: 100,
     sortUpdated: 'newest' as 'newest' | 'oldest',
     currentPage: 1,
-    pageCount: 10,
-    isOwner: false
+    pageCount: 20,
+    showOwnPacks: false
 }
 
 export const cardpacksReducer = (state: CardPacksStateType = initialState, action: CardPacksActionsType): CardPacksStateType => {
     switch (action.type) {
         case "CARDPACKS/SET-CARDPACKS-DATA": return {
-            ...state, ...action.payload
+            ...state,
+            cardPacks: action.payload.cardPacks.map((p: IncomingCardPackType): InternalCardPackType => {
+                return {
+                    _id: p._id,
+                    user_id: p.user_id,
+                    user_name: p.user_name,
+                    private: p.private,
+                    name: p.name,
+                    cardsCount: p.cardsCount,
+                    updated: p.updated.split('T')[0] + ' ' + p.updated.split('T')[1],
+            }
+            })
         }
         default: return state
     }
@@ -68,7 +79,7 @@ export const getCardPacks = (): AppThunk => async (dispatch, getState) => {
             min: getState().cardpacks.filterMin,
             packName: getState().cardpacks.packName,
             sortPacks: getState().cardpacks.sortUpdated === 'newest' ? '0updated' : '1updated',
-            user_id: getState().auth.userData?._id
+            user_id: getState().cardpacks.showOwnPacks ? getState().auth.userData?._id : ''
         }
         const res = await cardpacksAPI.getCardPacks(data)
         dispatch(setCardPacksData(res.data))
