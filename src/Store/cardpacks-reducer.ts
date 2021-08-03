@@ -4,7 +4,7 @@ import {setAppStatus, setError} from "./app-reducer";
 import {handleServerNetworkError} from "../Components/Feature/Authorization/AuthCommon/utils/errorHandler";
 import {cardpacksAPI, GetCardPacksResponseType} from "../Api/cardpacks-api";
 
-export type IncomingCardPackType = {
+export type CardPackType = {
     _id: string
     user_id: string
     user_name: string
@@ -22,26 +22,19 @@ export type IncomingCardPackType = {
     __v: number
 }
 
-type InternalCardPackType = {
-    _id: string
-    user_id: string
-    user_name: string
-    private: boolean
-    name: string
-    cardsCount: number
-    updated: string
-}
-
-
 const initialState = {
-    incomingCardPacks: [] as Array<IncomingCardPackType>,
-    cardPacks: [] as Array<InternalCardPackType>,
+    cardPacks: [] as Array<CardPackType>,
+    page: 1,
+    pageCount: 20,
+    cardPacksTotalCount: 0,
+    maxCardsCount: 0,
+    minCardsCount: 0,
     packName: '' as 'english' | '',
     filterMin: 0,
     filterMax: 100,
     sortUpdated: 'newest' as 'newest' | 'oldest',
-    currentPage: 1,
-    pageCount: 20,
+    token: '',
+    tokenDeathTime: 0,
     showOwnPacks: false
 }
 
@@ -49,17 +42,7 @@ export const cardpacksReducer = (state: CardPacksStateType = initialState, actio
     switch (action.type) {
         case "CARDPACKS/SET-CARDPACKS-DATA": return {
             ...state,
-            cardPacks: action.payload.cardPacks.map((p: IncomingCardPackType): InternalCardPackType => {
-                return {
-                    _id: p._id,
-                    user_id: p.user_id,
-                    user_name: p.user_name,
-                    private: p.private,
-                    name: p.name,
-                    cardsCount: p.cardsCount,
-                    updated: p.updated.split('T')[0] + ' ' + p.updated.split('T')[1],
-            }
-            })
+            ...action.payload
         }
         default: return state
     }
@@ -73,7 +56,7 @@ export const getCardPacks = (): AppThunk => async (dispatch, getState) => {
     try {
         dispatch(setAppStatus("loading"))
         const data: GetCardPacksRequestType = {
-            page: getState().cardpacks.currentPage,
+            page: getState().cardpacks.page,
             pageCount: getState().cardpacks.pageCount,
             max: getState().cardpacks.filterMax,
             min: getState().cardpacks.filterMin,

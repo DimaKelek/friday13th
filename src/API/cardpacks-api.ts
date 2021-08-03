@@ -1,5 +1,4 @@
-import axios from "axios";
-import {GetCardPacksRequestType, IncomingCardPackType} from "../Store/cardpacks-reducer";
+import {GetCardPacksRequestType, CardPackType} from "../Store/cardpacks-reducer";
 import {instance} from "./api";
 
 
@@ -10,10 +9,12 @@ export const cardpacksAPI = {
 }
 
 export type GetCardPacksResponseType = {
-    cardPacks: Array<IncomingCardPackType>
+    cardPacks: Array<CardPackType>
+    page: number
+    pageCount: number
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
-    page: number
-    pageCount: number
+    token: string
+    tokenDeathTime: number
 }

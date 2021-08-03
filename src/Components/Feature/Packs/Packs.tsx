@@ -7,99 +7,25 @@ import {MyTextInput} from "../../Common/MyTextInput/MyTextInput";
 import MyTable from "../../Common/MyTable/MyTable";
 import MyTableHeader from "../../Common/MyTable/Components/MyTableHeader";
 import MyTableRow from "../../Common/MyTable/Components/MyTableRow";
+import {CardPackType} from "../../../Store/cardpacks-reducer";
+import {timeparser} from "../../../Utils/timeparser";
 
 type PacksPropsType = {
-    data: any
+    data: Array<CardPackType>
+    currentUserId?: string
 }
 export const Packs: FC<PacksPropsType> = ({data}) => {
-    const dataB = [
-        {
 
-            name:" cardDDDDDDDD",
-            cardsCount:'1534543535435',
-            created:"2021-07-31T16:52:24.159Z",
-            updated:"2021-07-31T16:53:57.206Z",
-            "_id":"61",
-        },
-        {
-
-            name:"new pack 2.0",
-            cardsCount:'0',
-            created:"2021-07-31T16:39:19.718Z",
-            updated:"2021-07-31T16:39:19.718Z",
-            "_id":"610",
-        },
-        {
-            name:"test",
-            cardsCount:'0',
-            created:"2021-07-31T07:53:29.570Z",
-            updated:"2021-07-31T07:53:29.570Z",
-            "_id":"610",
-        },
-        {
-            name:"Updated deck",
-            cardsCount:'22222222222222',
-            created:"2021-07-14T17:57:29.263Z",
-            updated:"2021-07-31T07:52:04.280Z",
-            "_id":"60",
-        },
-        {
-            name:"Updated deck",
-            cardsCount:'222',
-            created:"2021-07-14T17:57:29.263Z",
-            updated:"2021-07-31T07:52:04.280Z",
-            "_id":"6",
-        },
-        {
-            name:"Updated deck",
-            cardsCount:'22222222222',
-            created:"2021-07-14T17:57:29.263Z",
-            updated:"2021-07-31T07:52:04.280Z",
-            "_id":"60",
-        },
-
-        {
-            name:"Updated deck",
-            cardsCount:'22222222222',
-            created:"2021-07-14T17:57:29.263Z",
-            updated:"2021-07-31T07:52:04.280Z",
-            "_id":"60",
-        },
-
-        {
-            name:"Updated deck",
-            cardsCount:'22222222222',
-            created:"2021-07-14T17:57:29.263Z",
-            updated:"2021-07-31T07:52:04.280Z",
-            "_id":"60",
-        },
-
-        {
-            name:"Updated deck",
-            cardsCount:'22222222222',
-            created:"2021-07-14T17:57:29.263Z",
-            updated:"2021-07-31T07:52:04.280Z",
-            "_id":"60",
-        },
-
-        {
-            name:"Updated deck",
-            cardsCount:'22222222222',
-            created:"2021-07-14T17:57:29.263Z",
-            updated:"2021-07-31T07:52:04.280Z",
-            "_id":"60ef25898c169e00046b0dd6",
-        },
-    ]
     const headerTitles: Array<string | React.ReactNode> = [
         'Name',
         'Cards',
-        <MyButton>Last Updated</MyButton>,
+        <MyButton onClick={() => {}}>Last Updated</MyButton>,
         'Created by',
         'Actions']
     const cellData = data.map((el: any) => [
         el.name,
         el.cardsCount,
-        el.updated,
+        timeparser(el.updated),
         el.user_name,
         <MyButton>Delete</MyButton>,
         <MyButton>Edit</MyButton>,
