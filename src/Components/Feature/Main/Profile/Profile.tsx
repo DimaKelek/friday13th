@@ -1,11 +1,11 @@
 import React, {useCallback} from 'react';
 import S from './Profile.module.css'
 import {useDispatch, useSelector} from 'react-redux';
-import {AppStoreType} from '../../../Store/store';
-import {UserDataType} from '../../../Api/authAPI';
+import {AppStoreType} from '../../../../Store/store';
+import {UserDataType} from '../../../../Api/authAPI';
 import {Redirect} from 'react-router-dom';
-import {logout} from '../../../Store/auth-reducer';
-import {MyButton} from "../../Common/MyButton/MyButton";
+import {logout} from '../../../../Store/auth-reducer';
+import {MyButton} from "../../../Common/MyButton/MyButton";
 
 type ProfilePropsType = {}
 

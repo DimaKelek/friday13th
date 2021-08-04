@@ -1,8 +1,8 @@
 import React, {FC, useEffect} from 'react'
 import {Packs} from "./Packs";
 import {useDispatch, useSelector} from "react-redux";
-import {CardPackType, getCardPacks, toggleLastUpdatedCardPacks} from "../../../Store/cardpacks-reducer";
-import {AppStoreType} from "../../../Store/store";
+import {CardPackType, getCardPacks, toggleLastUpdatedCardPacks} from "../../../../Store/cardpacks-reducer";
+import {AppStoreType} from "../../../../Store/store";
 
 type PacksContainerPropsType = {
 

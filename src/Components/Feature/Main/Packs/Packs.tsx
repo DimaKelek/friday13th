@@ -1,12 +1,12 @@
 import React, {FC} from 'react'
-import Sc from "../Authorization/AuthCommon/Styles/CommonStyles.module.css";
+import Sc from "../../Authorization/AuthCommon/Styles/CommonStyles.module.css";
 import S from "./Packs.module.css";
-import {MyButton} from "../../Common/MyButton/MyButton";
-import {MyDoubleRange} from "../../Common/Ranges/MyDoubleRange/MyDoubleRange";
-import {MyTextInput} from "../../Common/MyTextInput/MyTextInput";
-import MyTable from "../../Common/MyTable/MyTable";
-import {CardPackType} from "../../../Store/cardpacks-reducer";
-import {timeparser} from "../../../Utils/timeparser";
+import {MyButton} from "../../../Common/MyButton/MyButton";
+import {MyDoubleRange} from "../../../Common/Ranges/MyDoubleRange/MyDoubleRange";
+import {MyTextInput} from "../../../Common/MyTextInput/MyTextInput";
+import MyTable from "../../../Common/MyTable/MyTable";
+import {CardPackType} from "../../../../Store/cardpacks-reducer";
+import {timeparser} from "../../../../Utils/timeparser";
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
@@ -84,7 +84,7 @@ export const Packs: FC<PacksPropsType> = (props) => {
                                  cellMinHeight={'48px'}/>
                     </div>
                     <div className={S.packs__block}>
-
+                        <MyPaginator />
                     </div>
                 </div>
             </div>

@@ -1,0 +1,12 @@
+.paginator__container {
+    width: 100%;
+    display: flex;
+}
+
+.paginator {
+    flex: 1 1 auto;
+}
+
+.rangeSelector {
+    flex: 0 0 auto;
+}
