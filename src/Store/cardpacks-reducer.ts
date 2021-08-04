@@ -25,7 +25,7 @@ export type CardPackType = {
 const initialState = {
     cardPacks: [] as Array<CardPackType>,
     page: 1,
-    pageCount: 20,
+    pageCount: 25,
     cardPacksTotalCount: 0,
     maxCardsCount: 0,
     minCardsCount: 0,
@@ -44,13 +44,19 @@ export const cardpacksReducer = (state: CardPacksStateType = initialState, actio
             ...state,
             ...action.payload
         }
+        case "CARDPACKS/TOGGLE-UPDATED-FLAG": return {
+            ...state,
+            sortUpdated: state.sortUpdated === 'newest' ? 'oldest' : 'newest'
+        }
         default: return state
     }
 }
 
 // actions
 export const setCardPacksData = (data: GetCardPacksResponseType) =>
-    ({type: cardpacksActionVariables.SET_CARDPACKS_DATA, payload: {...data}}) as const
+    ({type: cardpacksActionVariables.SET_CARDPACKS_DATA, payload: {...data},}) as const
+export const toggleUpdatedFlag = () =>
+    ({type: cardpacksActionVariables.TOGGLE_UPDATED_FLAG, payload: {}}) as const
 
 export const getCardPacks = (): AppThunk => async (dispatch, getState) => {
     try {
@@ -72,6 +78,11 @@ export const getCardPacks = (): AppThunk => async (dispatch, getState) => {
         handleServerNetworkError(e, dispatch)
     }
 }
+export const toggleLastUpdatedCardPacks = (): AppThunk => async (dispatch, getState) => {
+    dispatch(toggleUpdatedFlag())
+    dispatch(getCardPacks())
+}
+
 
 // types
 export type GetCardPacksRequestType = {
@@ -85,10 +96,11 @@ export type GetCardPacksRequestType = {
 }
 export type CardPacksStateType = typeof initialState
 type SetCardPacksDataType = ReturnType<typeof setCardPacksData>
-export type CardPacksActionsType = SetCardPacksDataType
+type ToggleUpdatedFlagType = ReturnType<typeof toggleUpdatedFlag>
+export type CardPacksActionsType = SetCardPacksDataType | ToggleUpdatedFlagType
 
 // variables
 const cardpacksActionVariables = {
     SET_CARDPACKS_DATA: "CARDPACKS/SET-CARDPACKS-DATA",
-
+    TOGGLE_UPDATED_FLAG: "CARDPACKS/TOGGLE-UPDATED-FLAG",
 }

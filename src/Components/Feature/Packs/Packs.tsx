@@ -5,34 +5,50 @@ import {MyButton} from "../../Common/MyButton/MyButton";
 import {MyDoubleRange} from "../../Common/Ranges/MyDoubleRange/MyDoubleRange";
 import {MyTextInput} from "../../Common/MyTextInput/MyTextInput";
 import MyTable from "../../Common/MyTable/MyTable";
-import MyTableHeader from "../../Common/MyTable/Components/MyTableHeader";
-import MyTableRow from "../../Common/MyTable/Components/MyTableRow";
 import {CardPackType} from "../../../Store/cardpacks-reducer";
 import {timeparser} from "../../../Utils/timeparser";
+import IconButton from '@material-ui/core/IconButton/IconButton';
+import Edit from '@material-ui/icons/Edit';
+import Delete from '@material-ui/icons/Delete';
+import ArrowForward from '@material-ui/icons/ArrowForward';
+import {CardPacksTableActionsType} from "./PacksContainer";
+import {NavLink} from "react-router-dom";
 
 type PacksPropsType = {
-    data: Array<CardPackType>
+    rawData: Array<CardPackType>
     currentUserId?: string
+    lastUpdatedFlag: string
+    handleAction: (id: string, action: CardPacksTableActionsType) => void
+    handleLastUpdated: () => void
 }
-export const Packs: FC<PacksPropsType> = ({data}) => {
 
+export const Packs: FC<PacksPropsType> = (props) => {
+    const {rawData, currentUserId, lastUpdatedFlag, handleAction, handleLastUpdated} = props
     const headerTitles: Array<string | React.ReactNode> = [
         'Name',
         'Cards',
-        <MyButton onClick={() => {}}>Last Updated</MyButton>,
+        <span onClick={handleLastUpdated}>Last Updated {lastUpdatedFlag === 'newest' ? '▲' : '▼'}</span>,
         'Created by',
         'Actions']
-    const cellData = data.map((el: any) => [
+    const cellData = rawData.map((el: CardPackType) => [
         el.name,
         el.cardsCount,
         timeparser(el.updated),
         el.user_name,
-        <MyButton>Delete</MyButton>,
-        <MyButton>Edit</MyButton>,
-        <MyButton>Learn</MyButton>,])
-    const columnSchema = `'h1 h2 h3 h4 h5 h5 h5'`
-    const columnWeights = ['8fr', '2fr', '5fr', '5fr', '1fr', '1fr', '1fr',]
-    const rowMinHeight = '48px'
+        currentUserId === el.user_id
+            ? <IconButton onClick={() => handleAction(el._id, 'delete')}><Delete/></IconButton>
+            : null,
+        currentUserId === el.user_id
+            ? <IconButton onClick={() => handleAction(el._id, 'edit')}><Edit/></IconButton>
+            : null,
+//        <IconButton onClick={() => handleAction(el._id, 'delete')}><Delete/></IconButton>,
+//        <IconButton onClick={() => handleAction(el._id, 'edit')}><Edit/></IconButton>,
+        <NavLink to={'/card/' + el._id}>
+            <IconButton onClick={() => handleAction(el._id, 'learn')}><ArrowForward/></IconButton>
+        </NavLink>
+        ,])
+    const columnSchema = 'h1 h2 h3 h4 h5 h5 h5'
+    const columnWeights = ['16fr', '4fr', '9fr', '10fr', '2fr', '2fr', '2fr',]
     return (
         <div className={Sc.page_container}>
             <div className={S.page}>
@@ -64,7 +80,8 @@ export const Packs: FC<PacksPropsType> = ({data}) => {
                                  headerTitles={headerTitles}
                                  columnSchema={columnSchema}
                                  columnWeights={columnWeights}
-                                 rowMinHeight={rowMinHeight}/>
+                                 tableMaxHeight={'480px'}
+                                 cellMinHeight={'48px'}/>
                     </div>
                     <div className={S.packs__block}>
 

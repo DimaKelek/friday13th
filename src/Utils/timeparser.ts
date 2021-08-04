@@ -1,5 +1,5 @@
 export const timeparser = (time: string): string => {
-    let ISO_8601_re = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.(\d{3}))?(Z|[\+-]\d{2}(?::\d{2})?)$/
+    let ISO_8601_re = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.(\d{3}))?(Z|[+-]\d{2}(?::\d{2})?)$/
     let m = time.match(ISO_8601_re);
     if (m) {
         let year = +m[1],

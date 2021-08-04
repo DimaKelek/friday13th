@@ -5,11 +5,13 @@ import MyTableCell from "./MyTableCell";
 type MyTableRowPropsType = {
     cells: Array<string | React.ReactNode>
     columnWeights: Array<string>
+    cellMinHeight?: string
 };
 const MyTableRow: FC<MyTableRowPropsType> = (props) => {
     const {
         cells,
         columnWeights,
+        cellMinHeight,
         ...restProps} = props
     const getColumnsTemplate = (weights: string[]) => {
         return weights.reduce((acc, w) => acc + `minmax(0, ${w}) `, '').trim()
@@ -19,7 +21,7 @@ const MyTableRow: FC<MyTableRowPropsType> = (props) => {
         return {gridTemplateColumns: getColumnsTemplate(columnWeights)}
     }
     const mappedCells = cells.map((c, i) => (
-        <MyTableCell key={i} children={c}/>
+        <MyTableCell key={i} cellMinHeight={cellMinHeight} children={c}/>
     ))
     return (
         <div className={S.table__row} style={rowStyle()}>

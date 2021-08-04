@@ -5,14 +5,18 @@ type MyTableHeaderPropsType = {
     headerTitles: Array<string | React.ReactNode>
     columnSchema: string
     columnWeights: Array<string>
+    cellMinHeight?: string
 };
 const MyTableHeader: FC<MyTableHeaderPropsType> = (props) => {
     const {
         headerTitles,
         columnSchema,
-        columnWeights,} = props
+        columnWeights,
+        cellMinHeight} = props
     const headerCeils = headerTitles.map((h: string | React.ReactNode, i) => (
-        <div key={i} className={S.table__cell__container} style={{gridArea: 'h'+(i+1).toString()}}>
+        <div key={i}
+             className={S.table__cell__container}
+             style={{gridArea: 'h'+(i+1).toString(), minHeight: cellMinHeight}}>
             <div className={S.table__cell}>{h}</div>
         </div>
     ))
@@ -25,7 +29,7 @@ const MyTableHeader: FC<MyTableHeaderPropsType> = (props) => {
     }
 
     const headerRowStyle = ():CSSProperties => {
-        return {gridTemplateAreas: columnSchema}
+        return {gridTemplateAreas: `'${columnSchema}'`}
     }
     return (
         <div className={S.table__row__header} style={{...rowStyle(), ...headerRowStyle()}}>

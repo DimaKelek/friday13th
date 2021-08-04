@@ -1,12 +1,11 @@
 .table {
     position: relative;
     width: 100%;
-    height: 480px;
     box-shadow: 0 0 10px 10px #e0e0e0;
     display: grid;
     overflow-x: hidden;
-    overflow-y: scroll;
-    font-size: 14px;
+    overflow-y: auto;
+    font-size: 13px;
 }
 
 .table button {
@@ -15,7 +14,8 @@
 
 .table__row, .table__row__header {
     display: grid;
-    grid-column-gap: 20px;
+    grid-column-gap: 10px;
+    padding: 0 20px 0;
 }
 
 .table__row:nth-child(2n+1) {
@@ -25,11 +25,15 @@
 .table__row__header {
     position: sticky;
     top: 0;
+    z-index: 10;
     background-color: #ececf9;
 }
 
+.table__row__header span {
+    cursor: pointer;
+}
+
 .table__cell__container {
-    min-height: 48px;
     display: flex;
     align-items: center;
 }
@@ -41,9 +45,9 @@
 }
 
 .table__cell__container:first-child {
-    padding-left: 20px;
+
 }
 
 .table__cell__container:last-child {
-    padding-right: 20px;
+
 }
