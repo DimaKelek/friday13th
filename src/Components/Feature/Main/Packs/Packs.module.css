@@ -39,6 +39,7 @@
 }
 
 .packs__block:last-child {
+    display: flex;
     margin-bottom: 0;
 }
 
