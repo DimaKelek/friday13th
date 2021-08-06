@@ -3,7 +3,6 @@
     width: 1100px;
     display: grid;
     grid-template-columns: 240px 860px;
-
 }
 .filters__container {
     display: flex;

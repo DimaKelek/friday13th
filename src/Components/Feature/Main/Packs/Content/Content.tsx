@@ -50,7 +50,7 @@ export const Content: FC<ContentPropsType> = (props) => {
         currentUserId === el.user_id
             ? <IconButton onClick={() => handleTableAction(el._id, 'edit')}><Edit/></IconButton>
             : null,
-        <NavLink to={'/card/' + el._id}>
+        <NavLink to={'/cards/' + el._id}>
             <IconButton onClick={() => handleTableAction(el._id, 'learn')}><ArrowForward/></IconButton>
         </NavLink>
         ,])

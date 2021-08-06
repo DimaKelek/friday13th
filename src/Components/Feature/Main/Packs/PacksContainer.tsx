@@ -11,6 +11,7 @@ import {
 } from "../../../../Store/cardpacks-reducer";
 import {AppStoreType} from "../../../../Store/store";
 import {RequestStatusType, setAppStatus, setNeedUpdate} from '../../../../Store/app-reducer';
+import {setCardsPackID} from "../../../../Store/cards-reducer";
 
 type PacksContainerPropsType = {
 
@@ -80,7 +81,7 @@ export const PacksContainer: FC<PacksContainerPropsType> = ({}) => {
     }
     const handleTableAction = (id: string, action: CardPacksTableActionsType) => {
         switch (action) {
-            case "learn":  dispatch(1)
+            case "learn":  dispatch(setCardsPackID(id))
                 return;
             case "delete": dispatch(deleteCardsPack({id: id}))
                 return;
