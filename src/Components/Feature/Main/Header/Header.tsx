@@ -11,7 +11,7 @@ export const Header = () => {
                 <h2>It-incubator</h2>
                 <nav>
                     <Link path={"/packs"} icon={decksIcon} title={"Packs List"}/>
-                    <Link path={"profile"} icon={profileIcon} title={"Profile"}/>
+                    <Link path={"/profile"} icon={profileIcon} title={"Profile"}/>
                 </nav>
             </div>
         </div>

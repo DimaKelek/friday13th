@@ -3,6 +3,7 @@
     width: 1100px;
 }
 .cards__container {
+    min-height: inherit;
     display: flex;
     flex-direction: column;
     border-radius: 10px;

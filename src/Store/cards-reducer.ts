@@ -1,15 +1,6 @@
 import {AppThunk} from "./store";
 import {setAppStatus, setError} from "./app-reducer";
-import {cardpacksAPI, GetCardPacksResponseType} from "../Api/cardpacks-api";
 import {handleServerNetworkError} from "../Components/Feature/Authorization/AuthCommon/utils/errorHandler";
-import {
-    AddCardsPackRequestType,
-    CardPacksActionsType,
-    CardPacksStateType, getCardPacks,
-    GetCardPacksRequestType,
-    setCardPacksData, setRangeValues,
-    toggleShowOwnMode
-} from "./cardpacks-reducer";
 import {cardsAPI, GetCardsResponseType} from "../Api/cards-api";
 
 export type CardType = {

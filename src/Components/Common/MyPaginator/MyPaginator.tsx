@@ -53,7 +53,7 @@ export const MyPaginator: FC<MyPaginatorPropsType> = ({
                           style={{minWidth: '45px', fontSize: '13px',}}><b>{'◄'}</b></MyButton>
                 {pages}
                 <MyButton onClick={() => setCurrentPage(currentPage+1)}
-                          disabled={currentPage===pagesCount}
+                          disabled={currentPage===pagesCount || pagesCount===0}
                           variant={"standard"}
                           style={{minWidth: '45px', fontSize: '13px',}}><b>{'►'}</b></MyButton>
             </div>

@@ -20,6 +20,7 @@ import {
 } from '../../../../Store/cards-reducer';
 import {timeparser} from "../../../../Utils/timeparser";
 import {RequestStatusType, setAppStatus, setNeedUpdate} from "../../../../Store/app-reducer";
+import {CircularProgress} from "@material-ui/core";
 
 type CardsPropsType = {
     
@@ -100,6 +101,18 @@ export const Cards: FC<CardsPropsType> = ({}) => {
     return (
         <div className={Sc.page_container}>
             <div className={S.page}>
+                {appStatus === "loading" && <div
+                    style={{position: 'fixed',
+                        display: "flex",
+                        zIndex: 20,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        textAlign: 'center',
+                        width: '1100px',
+                        height: '100%',
+                        backgroundColor: 'rgba(200, 200, 200, 0.3)'}}>
+                    <CircularProgress/>
+                </div>}
                 <div className={S.cards__container}>
                     <div className={S.cards__block}>
                         <span>
