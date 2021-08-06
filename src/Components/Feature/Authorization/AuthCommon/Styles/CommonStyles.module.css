@@ -1,5 +1,4 @@
 .page_container {
-    min-height: 100vh;
     background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
     display: flex;
     justify-content: center;
@@ -18,6 +17,11 @@
     border-radius: 10px;
     background-color: #ffffff;
     padding: 25px;
+}
+
+.form_container img {
+    display: block;
+    margin: 100px auto 20px;
 }
 
 .form_container h3, .form_container h4 {
