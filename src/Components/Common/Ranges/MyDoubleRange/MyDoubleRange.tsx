@@ -9,11 +9,11 @@ type SuperDoubleRangePropsType = {
     disabled?: boolean
     min?: number
     max?: number
+    onClickHandler?: (e: ChangeEvent<{}>) => void
 }
 
 export const MyDoubleRange: React.FC<SuperDoubleRangePropsType> = props => {
-    const {onChangeRangeFirst, onChangeRangeSecond, value, disabled, min, max, ...restProps} = props
-
+    const {onChangeRangeFirst, onChangeRangeSecond, value, disabled, min, max, onClickHandler} = props
     const onChangeDoubleRange = (value: [number, number]) => {
         onChangeRangeFirst && onChangeRangeFirst(value[0])
         onChangeRangeSecond && onChangeRangeSecond(value[1])
@@ -21,6 +21,10 @@ export const MyDoubleRange: React.FC<SuperDoubleRangePropsType> = props => {
 
     const onChangeCallback = (e: ChangeEvent<{}>, value: number | number[]) => {
         onChangeDoubleRange(value as [number, number])
+    }
+
+    function valuetext(value: number) {
+        return `${value}°C`;
     }
 
     return (
@@ -31,6 +35,9 @@ export const MyDoubleRange: React.FC<SuperDoubleRangePropsType> = props => {
                 disabled={disabled}
                 min={min}
                 max={max}
+                valueLabelDisplay="auto"
+                getAriaValueText={valuetext}
+                onClick={onClickHandler}
             />
         </div>
     );

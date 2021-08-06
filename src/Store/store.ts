@@ -6,13 +6,12 @@ import {RegistrationActionsType, registrationReducer} from "./registration-reduc
 import {RecoveryPassActionsType, recoveryPassReducer} from "./recovery-pass-reducer";
 import {AppActionsType, appReducer} from "./app-reducer";
 
-
 const rootReducer = combineReducers({
     profile: profileReducer,
     auth: authReducer,
     registration: registrationReducer,
     recovery: recoveryPassReducer,
-    app: appReducer,
+    app: appReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
@@ -26,8 +25,6 @@ export type AllAppActionsType =
     | RegistrationActionsType
     | RecoveryPassActionsType
     | AppActionsType
-
-export type AppDispatchType = typeof store.dispatch
 
 //@ts-ignore
 window.store = store

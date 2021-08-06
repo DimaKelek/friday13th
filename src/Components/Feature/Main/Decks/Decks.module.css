@@ -1,0 +1,65 @@
+.settings_container {
+    margin: 25px 0;
+    height: 100%;
+}
+
+.showDecks {
+    width: 150px;
+    height: 30px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.onBlock {
+    width: 75px;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    background-color: #9A91C8;
+    transition: .8s;
+}
+
+.onBlock.myMode {
+    left: 0;
+}
+
+.onBlock.allMode {
+    left: 75px;
+}
+
+.my, .all {
+    background-color: #ffffff;
+}
+
+.showDecks div {
+    height: 100%;
+    width: 50%;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.showDecks div:hover {
+    cursor: pointer;
+}
+
+.range {
+    margin: 40px 0;
+}
+
+/*list*/
+
+.list_container {
+    margin: 25px 50px 10px;
+    position: relative;
+}
+
+.list_container > button {
+    position: absolute;
+    top: 47px;
+    right: 200px;
+}
+

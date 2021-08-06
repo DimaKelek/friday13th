@@ -26,7 +26,7 @@ export const Login = () => {
 
     useEffect(() => {
         dispatch(setRegistrationStatus(false))
-    }, [])
+    }, [dispatch])
 
     const formik = useFormik({
         initialValues: {
@@ -55,7 +55,7 @@ export const Login = () => {
     })
 
     if (isLoggedIn) {
-        return <Redirect to={'/profile'}/>
+        return <Redirect to={'/app/profile'}/>
     }
 
     return (

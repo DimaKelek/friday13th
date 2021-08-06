@@ -1,0 +1,30 @@
+.workSpace {
+    width: 80%;
+    height: 600px;
+    background-color: #FEFEFF;
+    border-radius: 8px;
+}
+.workSpace_container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.settings {
+    width: 25%;
+    height: 100%;
+    border-radius: 8px 0 0 8px;
+    background-color: #ECECF9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.list {
+    width: 75%;
+    height: 100%;
+    border-radius: 0 8px 8px 0;
+}
