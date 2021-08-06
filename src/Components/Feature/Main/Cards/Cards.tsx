@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react'
+import React, {FC, useEffect, useState} from 'react'
 import Sc from "../../Authorization/AuthCommon/Styles/CommonStyles.module.css";
 import S from "./Cards.module.css";
 import {MyTextInput} from "../../../Common/MyTextInput/MyTextInput";
@@ -12,26 +12,57 @@ import {
     addCard,
     setCurrentPage,
     toggleUpdatedFlag,
+    setSearchValue,
     AddCardRequestType,
     CardsStateType,
     getCards,
     CardType
 } from '../../../../Store/cards-reducer';
 import {timeparser} from "../../../../Utils/timeparser";
+import {RequestStatusType, setAppStatus, setNeedUpdate} from "../../../../Store/app-reducer";
 
 type CardsPropsType = {
     
 }
 export const Cards: FC<CardsPropsType> = ({}) => {
     const dispatch = useDispatch()
-    const {cardsPack_id, cards, cardsTotalCount,
+    const appStatus = useSelector<AppStoreType, RequestStatusType>(state => state.app.status)
+    const needUpdate = useSelector<AppStoreType, boolean>(state => state.app.needUpdate)
+
+    const {cardsPack_id, cards, cardsTotalCount, cardQuestion,
         } = useSelector<AppStoreType, CardsStateType>((state) => state.cards)
     const currentPage = useSelector<AppStoreType, number>((state) => state.cards.page)
     const cardsPerPage = useSelector<AppStoreType, number>((state) => state.cards.pageCount)
     const lastUpdatedFlag = useSelector<AppStoreType, '0grade' | '1grade'>((state) => state.cards.sortCards)
+
+    const [attemptID, setAttemptID] = useState<number | null>(null)
     useEffect(() => {
-        dispatch(getCards())
-    }, [cardsPack_id])
+        if (needUpdate && appStatus !== 'loading') {
+            dispatch(getCards())
+            dispatch(setNeedUpdate(false))
+        }
+    }, [needUpdate, appStatus])
+    const requestAttempt = () => {
+        let id = setTimeout(async () => {
+            dispatch(setAppStatus('loading'))
+            await dispatch(getCards())
+            setAttemptID(null)
+        }, 500)
+        setAttemptID(+id)
+    }
+    useEffect(() => {
+        if (attemptID !== null && appStatus !== 'loading') {
+            clearTimeout(attemptID)
+            requestAttempt()
+        }
+        else if (appStatus !== 'loading') {
+            requestAttempt()
+        }
+        else dispatch(setNeedUpdate(true))
+    }, [currentPage, dispatch, cardQuestion, lastUpdatedFlag])
+
+
+
     const createNewCard = () => {
         const data: AddCardRequestType = {
             card: {
@@ -48,6 +79,9 @@ export const Cards: FC<CardsPropsType> = ({}) => {
     }
     const handleLastUpdated = () => {
         dispatch(toggleUpdatedFlag())
+    }
+    const setToSearch = (value: string) => {
+        dispatch(setSearchValue(value))
     }
 
     const headerTitles: Array<string | React.ReactNode> = [
@@ -75,7 +109,7 @@ export const Cards: FC<CardsPropsType> = ({}) => {
                     </div>
                     <div className={S.cards__block}>
                         <div className={S.cards__search}>
-                            <MyTextInput />
+                            <MyTextInput onChangeText={setToSearch}/>
                             <MyButton onClick={createNewCard}>Add new pack</MyButton>
                         </div>
                     </div>

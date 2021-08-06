@@ -70,7 +70,7 @@ export const toggleUpdatedFlag = () =>
 export const setCurrentPage = (page: number) =>
     ({type: cardsActionVariables.SET_CURRENT_PAGE, payload: {page: page}}) as const
 export const setSearchValue = (value: string) =>
-    ({type: cardsActionVariables.SET_SEARCH_VALUE, payload: {packName: value}}) as const
+    ({type: cardsActionVariables.SET_SEARCH_VALUE, payload: {cardQuestion: value}}) as const
 
 
 
