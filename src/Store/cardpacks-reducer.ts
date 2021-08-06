@@ -35,19 +35,25 @@ const initialState = {
     //internal
     packName: '',
     filterMin: 0,  //filter range current
-    filterMax: 100, //filter range current
+    filterMax: 0, //filter range current
     sortUpdated: 'newest' as 'newest' | 'oldest',
-    showOwnPacks: false
+    showOwnMode: false
 }
 
 export const cardpacksReducer = (state: CardPacksStateType = initialState, action: CardPacksActionsType): CardPacksStateType => {
     switch (action.type) {
         case "CARDPACKS/SET-CARDPACKS-DATA":
+        case "CARDPACKS/SET_RANGE_VALUES":
         case "CARDPACKS/SET-SEARCH-VALUE":
         case "CARDPACKS/SET-CURRENT-PAGE":
             return {
                 ...state,
                 ...action.payload
+            }
+        case "CARDPACKS/TOGGLE-SHOW-OWN-PACKS-MODE":
+            return {
+                ...state,
+                showOwnMode: !state.showOwnMode
             }
         case "CARDPACKS/TOGGLE-UPDATED-FLAG":
             return {
@@ -65,6 +71,10 @@ export const setCardPacksData = (data: GetCardPacksResponseType) =>
     ({type: cardpacksActionVariables.SET_CARDPACKS_DATA, payload: {...data},}) as const
 export const toggleUpdatedFlag = () =>
     ({type: cardpacksActionVariables.TOGGLE_UPDATED_FLAG, payload: {}}) as const
+export const toggleShowOwnMode = () =>
+    ({type: cardpacksActionVariables.TOGGLE_SHOW_OWN_MODE, payload: {}}) as const
+export const setRangeValues = (min: number, max: number) =>
+    ({type: cardpacksActionVariables.SET_RANGE_VALUES, payload: {filterMin: min, filterMax: max,}}) as const
 export const setCurrentPage = (page: number) =>
     ({type: cardpacksActionVariables.SET_CURRENT_PAGE, payload: {page: page}}) as const
 export const setSearchValue = (value: string) =>
@@ -82,7 +92,7 @@ export const getCardPacks = (): AppThunk => async (dispatch, getState) => {
             min: getState().cardpacks.filterMin,
             packName: getState().cardpacks.packName,
             sortPacks: getState().cardpacks.sortUpdated === 'newest' ? '0updated' : '1updated',
-            user_id: getState().cardpacks.showOwnPacks ? getState().auth.userData?._id : ''
+            user_id: getState().cardpacks.showOwnMode ? getState().auth.userData?._id : ''
         }
         const res = await cardpacksAPI.getCardPacks(data)
         dispatch(setCardPacksData(res.data))
@@ -91,10 +101,6 @@ export const getCardPacks = (): AppThunk => async (dispatch, getState) => {
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     }
-}
-export const toggleLastUpdatedCardPacks = (): AppThunk => async (dispatch) => {
-    dispatch(toggleUpdatedFlag())
-    dispatch(getCardPacks())
 }
 
 export const addCardsPack = (data: AddCardsPackRequestType): AppThunk => async (dispatch) => {
@@ -162,6 +168,8 @@ export type EditCardsPackRequestType = {
 export type CardPacksStateType = typeof initialState
 type SetCardPacksDataType = ReturnType<typeof setCardPacksData>
 type ToggleUpdatedFlagType = ReturnType<typeof toggleUpdatedFlag>
+type ToggleShowOwnModeType = ReturnType<typeof toggleShowOwnMode>
+type SetRangeValuesType = ReturnType<typeof setRangeValues>
 type SetCurrentPageType = ReturnType<typeof setCurrentPage>
 type SetSearchValueType = ReturnType<typeof setSearchValue>
 export type CardPacksActionsType =
@@ -169,15 +177,18 @@ export type CardPacksActionsType =
     | ToggleUpdatedFlagType
     | SetCurrentPageType
     | SetSearchValueType
+    | ToggleShowOwnModeType
+    | SetRangeValuesType
 
 // variables
 const cardpacksActionVariables = {
     SET_CARDPACKS_DATA: "CARDPACKS/SET-CARDPACKS-DATA",
     TOGGLE_UPDATED_FLAG: "CARDPACKS/TOGGLE-UPDATED-FLAG",
     SET_CURRENT_PAGE: "CARDPACKS/SET-CURRENT-PAGE",
-    SET_PAGINATION_RANGE: "CARDPACKS/SET-PAGINATION-RANGE",
+    SET_PAGINATION_OFFSET: "CARDPACKS/SET-PAGINATION-OFFSET",
     SET_SEARCH_VALUE: "CARDPACKS/SET-SEARCH-VALUE",
     TOGGLE_SHOW_OWN_MODE: "CARDPACKS/TOGGLE-SHOW-OWN-PACKS-MODE",
+    SET_RANGE_VALUES: "CARDPACKS/SET_RANGE_VALUES",
     DELETE_CARDPACK: "CARDPACKS/DELETE-CARDPACK",
     EDIT_CARDPACK: "CARDPACKS/EDIT-CARDPACK",
 }

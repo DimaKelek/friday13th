@@ -6,6 +6,7 @@ import {RegistrationActionsType, registrationReducer} from "./registration-reduc
 import {RecoveryPassActionsType, recoveryPassReducer} from "./recovery-pass-reducer";
 import {AppActionsType, appReducer} from "./app-reducer";
 import {cardpacksReducer} from "./cardpacks-reducer";
+import {cardsReducer} from "./cards-reducer";
 
 const rootReducer = combineReducers({
     profile: profileReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     registration: registrationReducer,
     recovery: recoveryPassReducer,
     cardpacks: cardpacksReducer,
+    cards: cardsReducer,
     app: appReducer,
 })
 
