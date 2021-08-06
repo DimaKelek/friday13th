@@ -39,7 +39,8 @@ export const Content: FC<ContentPropsType> = (props) => {
         <span onClick={handleLastUpdated}>Last Updated {lastUpdatedFlag === 'newest' ? '▲' : '▼'}</span>,
         'Created by',
         'Actions']
-    const cellData = rawData.map((el: CardPackType) => [
+    const cellData = rawData.length > 0
+        ? rawData.map((el: CardPackType) => [
         el.name,
         el.cardsCount,
         timeparser(el.updated),
@@ -54,6 +55,7 @@ export const Content: FC<ContentPropsType> = (props) => {
             <IconButton onClick={() => handleTableAction(el._id, 'learn')}><ArrowForward/></IconButton>
         </NavLink>
         ,])
+        : [['There is nothing here yet']]
     const columnSchema = 'h1 h2 h3 h4 h5 h5 h5'
     const columnWeights = ['16fr', '4fr', '8fr', '10fr', '2fr', '2fr', '2fr',]
     return (

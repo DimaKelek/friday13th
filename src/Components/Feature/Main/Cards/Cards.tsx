@@ -30,7 +30,8 @@ export const Cards: FC<CardsPropsType> = ({}) => {
     const appStatus = useSelector<AppStoreType, RequestStatusType>(state => state.app.status)
     const needUpdate = useSelector<AppStoreType, boolean>(state => state.app.needUpdate)
 
-    const {cardsPack_id, cards, cardsTotalCount, cardQuestion,
+    const currentUserId = useSelector<AppStoreType, string | undefined>(state => state.auth.userData?._id)
+    const {cardsPack_id, cards, cardsTotalCount, cardQuestion, packUserId,
         } = useSelector<AppStoreType, CardsStateType>((state) => state.cards)
     const currentPage = useSelector<AppStoreType, number>((state) => state.cards.page)
     const cardsPerPage = useSelector<AppStoreType, number>((state) => state.cards.pageCount)
@@ -90,12 +91,13 @@ export const Cards: FC<CardsPropsType> = ({}) => {
         'Answer',
         <span onClick={handleLastUpdated}>Last Updated {lastUpdatedFlag === "0grade" ? '▲' : '▼'}</span>,
         'Grade']
-    const cellData = cards.map((c: CardType) => [
+    const cellData = cards.length > 0
+        ? cards.map((c: CardType) => [
         c.question,
         c.answer,
         timeparser(c.updated),
-        c.grade
-    ])
+        c.grade])
+        : [['There is nothing here yet']]
     const columnSchema = 'h1 h2 h3 h4'
     const columnWeights = ['10fr', '10fr', '5fr', '3fr',]
     return (
@@ -123,7 +125,7 @@ export const Cards: FC<CardsPropsType> = ({}) => {
                     <div className={S.cards__block}>
                         <div className={S.cards__search}>
                             <MyTextInput onChangeText={setToSearch}/>
-                            <MyButton onClick={createNewCard}>Add new pack</MyButton>
+                            {packUserId === currentUserId && <MyButton onClick={createNewCard}>Add new pack</MyButton>}
                         </div>
                     </div>
                     <div className={S.cards__block}>
