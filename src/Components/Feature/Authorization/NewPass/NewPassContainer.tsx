@@ -5,7 +5,7 @@ import {AppStoreType} from "../../../../Store/store";
 import {RequestStatusType} from "../../../../Store/app-reducer";
 import {useFormik} from "formik";
 import {recovery} from "../../../../Store/recovery-pass-reducer";
-import {Redirect} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 
 export type NewPassFormikErrorType = {
     password?: string
@@ -16,7 +16,7 @@ export const NewPassContainer = () => {
     const status = useSelector<AppStoreType, RequestStatusType>(state => state.app.status)
     const isRecovered = useSelector<AppStoreType, boolean>(state => state.recovery.passIsRecovered)
     const dispatch = useDispatch()
-
+    const {token} = useParams<{token: string}>()
 
     const formik = useFormik({
             initialValues: {
@@ -35,13 +35,7 @@ export const NewPassContainer = () => {
                 return errors;
             },
             onSubmit: values => {
-                if(window.location.hash === "#/new-password") {
-                    values.token = ""
-                    formik.errors.token = "Recovery token is required"
-                } else {
-                    values.token = window.location.hash.replace("#/new-password/", "")
-                    dispatch(recovery({password: values.password, resetPasswordToken: values.token}))
-                }
+                dispatch(recovery({password: values.password, resetPasswordToken: token}))
                 formik.resetForm()
             }
         }

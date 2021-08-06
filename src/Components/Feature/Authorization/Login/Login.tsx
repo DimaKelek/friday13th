@@ -26,7 +26,7 @@ export const Login = () => {
 
     useEffect(() => {
         dispatch(setRegistrationStatus(false))
-    }, [])
+    }, [dispatch])
 
     const formik = useFormik({
         initialValues: {
