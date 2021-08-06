@@ -9,8 +9,8 @@ export const Header = () => {
             <div className={S.nav_container}>
                 <h2>It-incubator</h2>
                 <nav>
-                    <NavLink to={"/main/packs"}>Card Packs</NavLink>
-                    <NavLink to={"/main/profile"}>Profile</NavLink>
+                    <NavLink to={"/packs"}>Card Packs</NavLink>
+                    <NavLink to={"/profile"}>Profile</NavLink>
                 </nav>
             </div>
         </div>

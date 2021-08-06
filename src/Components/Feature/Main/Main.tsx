@@ -11,8 +11,8 @@ export const Main = () => {
         <div className={S.main}>
             <Header />
             <div className={S.content}>
-                    <Route path={"/main/profile"} render={() => <Profile />}/>
-                    <Route path={"/main/packs"} render={() => <PacksContainer />}/>
+                    <Route path={"/profile"} render={() => <Profile />}/>
+                    <Route path={"/packs"} render={() => <PacksContainer />}/>
             </div>
         </div>
     )
