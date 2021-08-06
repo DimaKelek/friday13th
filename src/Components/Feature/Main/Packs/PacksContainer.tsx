@@ -1,15 +1,16 @@
-import React, {FC, useEffect} from 'react'
+import React, {ChangeEvent, FC, useEffect, useState} from 'react'
 import {Packs} from "./Packs";
 import {useDispatch, useSelector} from "react-redux";
 import {
     addCardsPack,
-    AddCardsPackRequestType,
-    CardPackType,
-    getCardPacks, setCurrentPage,
+    AddCardsPackRequestType, CardPacksStateType,
+    CardPackType, deleteCardsPack, editCardsPack,
+    getCardPacks, setCurrentPage, setRangeValues,
     setSearchValue,
-    toggleLastUpdatedCardPacks
+    toggleShowOwnMode, toggleUpdatedFlag
 } from "../../../../Store/cardpacks-reducer";
 import {AppStoreType} from "../../../../Store/store";
+import {RequestStatusType, setAppStatus, setNeedUpdate} from '../../../../Store/app-reducer';
 
 type PacksContainerPropsType = {
 
@@ -17,21 +18,55 @@ type PacksContainerPropsType = {
 export type CardPacksTableActionsType = 'delete' | 'edit' | 'learn'
 export const PacksContainer: FC<PacksContainerPropsType> = ({}) => {
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(getCardPacks())
-    }, [])
+    const appStatus = useSelector<AppStoreType, RequestStatusType>(state => state.app.status)
+    const needUpdate = useSelector<AppStoreType, boolean>(state => state.app.needUpdate)
+
     const packsData = useSelector<AppStoreType, Array<CardPackType>>((state) => state.cardpacks.cardPacks)
-    const currentUserId = useSelector<AppStoreType, string | undefined>(state => state.auth.userData?._id)
-    const lastUpdatedFlag = useSelector<AppStoreType, string>((state) => state.cardpacks.sortUpdated)
     const currentPage = useSelector<AppStoreType, number>((state) => state.cardpacks.page)
-    const cardsPerPage = useSelector<AppStoreType, number>((state) => state.cardpacks.pageCount)
-    const cardPacksTotalCount = useSelector<AppStoreType, number>((state) => state.cardpacks.cardPacksTotalCount)
-    const handleLastUpdated = () => {
-        dispatch(toggleLastUpdatedCardPacks())
+    const lastUpdatedFlag = useSelector<AppStoreType, string>((state) => state.cardpacks.sortUpdated)
+
+    const {pageCount,
+        cardPacksTotalCount,
+        maxCardsCount,
+        minCardsCount,
+        packName,
+        filterMin,
+        filterMax,
+        showOwnMode} = useSelector<AppStoreType, CardPacksStateType>((state) => state.cardpacks)
+
+    useEffect(() => {
+        dispatch(setRangeValues(minCardsCount, maxCardsCount))
+    }, [minCardsCount, maxCardsCount])
+    const [attemptID, setAttemptID] = useState<number | null>(null)
+    useEffect(() => {
+        if (needUpdate && appStatus !== 'loading') {
+            dispatch(getCardPacks())
+            dispatch(setNeedUpdate(false))
+        }
+    }, [needUpdate, appStatus])
+    const requestAttempt = () => {
+        let id = setTimeout(async () => {
+            dispatch(setAppStatus('loading'))
+            await dispatch(getCardPacks())
+            setAttemptID(null)
+        }, 500)
+        setAttemptID(+id)
     }
-    const sendToSearch = (value: string) => {
+    useEffect(() => {
+        if (attemptID !== null && appStatus !== 'loading') {
+            clearTimeout(attemptID)
+            requestAttempt()
+        }
+        else if (appStatus !== 'loading') {
+            requestAttempt()
+        }
+        else dispatch(setNeedUpdate(true))
+    }, [currentPage, showOwnMode, dispatch, filterMin, filterMax, packName, lastUpdatedFlag])
+    const handleLastUpdated = () => {
+        dispatch(toggleUpdatedFlag())
+    }
+    const setToSearch = (value: string) => {
         dispatch(setSearchValue(value))
-        dispatch(getCardPacks())
     }
     const createNewCardsPack = () => {
         const data: AddCardsPackRequestType = {
@@ -47,27 +82,38 @@ export const PacksContainer: FC<PacksContainerPropsType> = ({}) => {
         switch (action) {
             case "learn":  dispatch(1)
                 return;
-            case "delete": dispatch(2)
+            case "delete": dispatch(deleteCardsPack({id: id}))
                 return;
-            case "edit": dispatch(3)
+            case "edit": dispatch(editCardsPack({cardsPack: {_id: id, name: 'edited',}})) // TODO: temporary functionality!
                 return;
             default: return
         }
     }
+    const handleToggleShowOwnMode = () => {
+        dispatch(toggleShowOwnMode())
+    }
+    const handleSetRangeValues = ([min, max]: Array<number>) => {
+        dispatch(setRangeValues(min, max))
+    }
     const handleSetCurrentPage = (page: number) => {
         dispatch(setCurrentPage(page))
-        dispatch(getCardPacks())
     }
     return (
-        <Packs rawData={packsData}
-               currentUserId={currentUserId}
+        <Packs appStatus={appStatus}
+               rangeValues={[filterMin, filterMax]}
+               rawData={packsData}
                lastUpdatedFlag={lastUpdatedFlag}
                currentPage={currentPage}
-               cardsPerPage={cardsPerPage}
+               cardsPerPage={pageCount}
                cardPacksTotalCount={cardPacksTotalCount}
-               sendToSearch={sendToSearch}
+               minCardsCount={minCardsCount}
+               maxCardsCount={maxCardsCount}
+               showOwnMode={showOwnMode}
+               sendToSearch={setToSearch}
                createNewCardsPack={createNewCardsPack}
                setCurrentPage={handleSetCurrentPage}
+               handleToggleShowOwnMode={handleToggleShowOwnMode}
+               handleSetRangeValues={handleSetRangeValues}
                handleTableAction={handleTableAction}
                handleLastUpdated={handleLastUpdated}/>
     )
