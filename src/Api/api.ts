@@ -1,7 +1,7 @@
 import axios from "axios";
 import {ForgotPasswordRequest, RecoveryRequestType} from "../Store/recovery-pass-reducer";
 
-const instanse = axios.create({
+export const instanse = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0/",
     withCredentials: true
 })

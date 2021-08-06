@@ -8,6 +8,7 @@ import {Page404} from "../Components/Common/Page404/Page404";
 import {RecoveryContainer} from "../Components/Feature/Authorization/RecoveryPass/RecoveryContainer";
 import {NewPassContainer} from "../Components/Feature/Authorization/NewPass/NewPassContainer";
 
+
 export const Routes: React.FC<any> = props => {
     return (
         <div>
