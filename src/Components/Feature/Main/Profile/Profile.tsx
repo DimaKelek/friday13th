@@ -2,12 +2,11 @@ import React, {useCallback} from "react";
 import Sc from "../MainCommon/Styles/MainCommon.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../../../Store/store";
-import {logout} from "../../../../Store/auth-reducer";
+import {logout, UserDataType} from "../../../../Store/auth-reducer";
 import {Redirect} from "react-router-dom";
 import {MyButton} from "../../../Common/MyButton/MyButton";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {RequestStatusType} from "../../../../Store/app-reducer";
-import {UserDataType} from "../../../../Api/authAPI";
 
 type ProfilePropsType = {
 

@@ -1,4 +1,6 @@
-import axios from "axios";
+import axios from "axios"
+import {AuthDataType, UserDataType} from "../Store/auth-reducer";
+import {RegisterDataType} from "../Store/registration-reducer";
 import {ForgotPasswordRequest, RecoveryRequestType} from "../Store/recovery-pass-reducer";
 
 const instanse = axios.create({
@@ -7,6 +9,18 @@ const instanse = axios.create({
 })
 
 export const authAPI = {
+    login(authData: AuthDataType) {
+        return instanse.post<LoginResponseType>(`/auth/login`, authData)
+    },
+    registration(registerData: RegisterDataType) {
+        return instanse.post<RegistrationResponseType>(`/auth/register`, registerData)
+    },
+    checkingAuth() {
+        return instanse.post<LoginResponseType>(`/auth/me`, {})
+    },
+    logout() {
+        return instanse.delete<ResponseType>(`/auth/me`, {})
+    },
     forgot(data: ForgotPasswordRequest) {
         return instanse.post<ResponseType>(`/auth/forgot`, data)
     },
@@ -15,18 +29,26 @@ export const authAPI = {
     }
 }
 
+// types
+type LoginResponseType = UserDataType & {
+    error?: string
+}
 type ResponseType = {
     info?: string
+    error?: string
+}
+type RegistrationResponseType = { addedUser: {} } & {
     error?: string
 }
 
 export const decksAPI = {
     getDecks(data: GetDecksRequestDataType) {
-        let id = data.user_id ? `&user_id=${data.user_id}`: ""
+        let id = data.user_id ? `&user_id=${data.user_id}` : ""
         let min = data.min ? `&min=${data.min}` : ""
         let max = data.max ? `&max=${data.max}` : ""
         let packName = data.packName ? `&packName=${data.packName}` : ""
         return instanse.get<DeckResponseType>(`/cards/pack?pageCount=7&page=${data.pageNumber}${id}${min}${max}${packName}`)
+
     },
     createDeck(data: CreateDeckRequestData) {
         return instanse.post(`/cards/pack`, data)
@@ -73,11 +95,9 @@ export type DeckResponseType = {
 export type CreateDeckRequestData = {
     cardsPack: DeckDataType
 }
-export type DeckDataType<T = "pack"> = {
+export type DeckDataType = {
     name: string
     private: boolean
-    type?: T
-    deckCover?: string
 }
 
 export type UpdateDeckRequestData = {
@@ -90,7 +110,7 @@ export type UpdateDeckRequestData = {
 
 export const cardsAPI = {
     getCards(data: GetCardsRequestDataType) {
-        let id = data.cardsPack_id ? `&cardsPack_id=${data.cardsPack_id}`: ""
+        let id = data.cardsPack_id ? `&cardsPack_id=${data.cardsPack_id}` : ""
         let min = data.min ? `&min=${data.min}` : ""
         let max = data.max ? `&max=${data.max}` : ""
         let cardAnswer = data.cardAnswer ? `&cardAnswer=${data.cardAnswer}` : ""
@@ -98,13 +118,13 @@ export const cardsAPI = {
         return instanse.get<GetCardsResponseType>(`/cards/card?pageCount=7&page=${data.pageNumber}${id}${min}${max}${cardAnswer}${cardQuestion}`)
     },
     createCard(data: CreateCardDataType) {
-        return instanse.post(`/cards/card`, data)
+        return instanse.post(`/cards/card`, {card: data})
     },
     removeCard(id: string) {
         return instanse.delete(`/cards/card?id=${id}`)
     },
     updateCard(data: UpdateCardRequestType) {
-        return instanse.put(`/cards/card`, data)
+        return instanse.put(`/cards/card`, {card: data})
     },
     updateRating(data: UpdateRatingType) {
         return instanse.put(`/cards/grade`, data)

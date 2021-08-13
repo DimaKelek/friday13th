@@ -1,26 +1,30 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
-import {ProfileActionsType, profileReducer} from "./profile-reducer";
+import {ProfileActionsType, profileSlice} from "./profile-reducer";
 import {AuthActionsType, authSlice} from "./auth-reducer";
-import {RegistrationActionsType, registrationReducer} from "./registration-reducer";
-import {RecoveryPassActionsType, recoveryPassReducer} from "./recovery-pass-reducer";
+import {registerSlice, RegistrationActionsType} from "./registration-reducer";
+import {RecoveryPassActionsType, recoverySlice} from "./recovery-pass-reducer";
 import {AppActionsType, appSlice} from "./app-reducer";
 import {decksSlice} from "./decks-reducer";
 import {cardsSlice} from "./cards-reducer";
 import {learningSlice} from "./learning-reducer";
+import {configureStore} from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
-    profile: profileReducer,
+    profile: profileSlice.reducer,
     auth: authSlice.reducer,
-    registration: registrationReducer,
-    recovery: recoveryPassReducer,
+    registration: registerSlice.reducer,
+    recovery: recoverySlice.reducer,
     app: appSlice.reducer,
     decks: decksSlice.reducer,
     cards: cardsSlice.reducer,
     learning: learningSlice.reducer
 })
 
-export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+export const store = configureStore({
+    reducer: rootReducer,
+    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
+})
 
 // types
 export type AppStoreType = ReturnType<typeof rootReducer>

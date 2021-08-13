@@ -1,9 +1,9 @@
-import {authAPI} from "../Api/authAPI";
 import {AppThunk} from "./store";
 import {setAppStatus, setError, setInitialized} from "./app-reducer";
 import {handleServerNetworkError} from "../Components/Feature/Authorization/AuthCommon/utils/errorHandler";
 import {setStatusPassRecovery} from "./recovery-pass-reducer";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {authAPI} from "../Api/api";
 
 const initialState = {
     userData: null as UserDataType | null,
@@ -30,7 +30,7 @@ export const {setUserData, changeLoginStatus} = authSlice.actions
 export const checkingAuthorization = (): AppThunk => async dispatch => {
     try {
         dispatch(setAppStatus("loading"))
-        const response = await authAPI.me()
+        const response = await authAPI.checkingAuth()
         const storedData: UserDataType = {
             _id: response.data._id,
             name: response.data.name,

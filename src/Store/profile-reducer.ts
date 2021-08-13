@@ -1,17 +1,18 @@
+import {createSlice} from "@reduxjs/toolkit";
+
 const initialState = {
 
 }
 
-export const profileReducer = (state: ProfileStateType = initialState, action: ProfileActionsType): ProfileStateType => {
-    switch (action.type) {
-        default: return state
-    }
-}
+export const profileSlice = createSlice({
+    name: "profile",
+    initialState: initialState,
+    reducers: {
 
-// actions
+    }
+})
 
 // thunks
 
 // types
-type ProfileStateType = typeof initialState
 export type ProfileActionsType = any
