@@ -84,6 +84,7 @@ export type UpdateDeckRequestData = {
     cardsPack: {
         _id: string
         name: string
+        private: boolean
     }
 }
 
@@ -104,16 +105,19 @@ export const cardsAPI = {
     },
     updateCard(data: UpdateCardRequestType) {
         return instanse.put(`/cards/card`, data)
+    },
+    updateRating(data: UpdateRatingType) {
+        return instanse.put(`/cards/grade`, data)
     }
 }
 
 export type GetCardsRequestDataType = {
     cardAnswer?: string
     cardQuestion?: string
-    cardsPack_id?: string
+    cardsPack_id: string
     min?: number
     max?: number
-    pageNumber: number
+    pageNumber?: number
 }
 export type GetCardsResponseType = {
     cards: CardType[]
@@ -139,24 +143,27 @@ export type CardType = {
 }
 
 export type CreateCardDataType = {
-    card: {
-        cardsPack_id: string
-        question: string
-        answer: string
-        grade?: number
-        shots?: number
-        rating?: number
-        answerImg?: string
-        questionImg?: string
-        questionVideo?: string
-        answerVideo?: string
-        type?: string
-    }
+    cardsPack_id: string
+    question: string
+    answer: string
+    grade?: number
+    shots?: number
+    rating?: number
+    answerImg?: string
+    questionImg?: string
+    questionVideo?: string
+    answerVideo?: string
+    type?: string
 }
 export type UpdateCardRequestType = {
-    card: {
-        _id: string
-        question?: string
-        answer?: string
-    }
+    _id: string
+    question?: string
+    answer?: string
 }
+
+export type UpdateRatingType = {
+    grade: GradeType
+    card_id: string
+}
+
+export type GradeType = 1 | 2 | 3 | 4 | 5

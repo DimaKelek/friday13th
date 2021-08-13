@@ -5,6 +5,7 @@ import {HashRouter, Route} from "react-router-dom";
 import {Decks} from "./Decks/Decks";
 import {Cards} from "./Cards/Cards";
 import {Profile} from "./Profile/Profile";
+import {LearningMode} from "./Learning/LearningMode";
 
 export const Main: React.FC = props => {
     return (
@@ -14,7 +15,8 @@ export const Main: React.FC = props => {
                 <HashRouter>
                     <Route path={"/app/profile"} render={() => <Profile />}/>
                     <Route path={"/app/decks"} render={() => <Decks />}/>
-                    <Route path={"/app/cards"} render={() => <Cards />}/>
+                    <Route path={"/app/cards/:deckID"} render={() => <Cards />}/>
+                    <Route path={"/app/learning/:deckID"} render={() => <LearningMode />}/>
                 </HashRouter>
             </div>
         </div>

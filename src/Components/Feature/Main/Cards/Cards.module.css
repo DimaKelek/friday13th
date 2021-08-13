@@ -2,20 +2,45 @@
     width: 90%;
 }
 
-.cards h2 {
-    margin-left: 35px;
+.title {
+    display: flex;
+    align-items: center;
 }
 
-.arrow {
-    position: absolute;
-    top: 10px;
-    left: 55px;
+.title a {
+    color: #000000;
     font-size: 35px;
-    color: #000000
 }
 
-.button {
-    position: absolute;
-    top: 63px;
-    left: 570px;
+.search {
+    display: flex;
+}
+
+.search > button {
+    position: relative;
+    top: 8px;
+}
+
+.showAnswer {
+    font-size: 18px;
+    color: #2196f3;
+}
+
+.showAnswer:hover {
+    transition: .3s;
+    color: #723fc2;
+    cursor: pointer;
+}
+
+.table_container {
+    width: 100%;
+    height: 455px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 1250px){
+    .table_container {
+        overflow-x: auto;
+    }
 }
