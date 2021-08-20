@@ -1,8 +1,9 @@
 .buttonsPanel {
-    width: 100%;
+    width: 90%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+
 }
 .buttonsPanel > button {
     height: 70%;
@@ -10,9 +11,13 @@
 
 .deleteButton {
     background-color: #ba1f3e;
-    color: #ffffff
+    color: #ffffff;
 }
 
 .deleteButton:hover {
     background-color: #d2153a;
+}
+
+.learnButton {
+    height: 70%;
 }

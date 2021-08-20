@@ -11,7 +11,7 @@ import {MyButton} from "../../../Common/MyButton/MyButton";
 import {MyCheckbox} from "../../../Common/MyCheckbox/MyCheckbox";
 import {RequestStatusType} from "../../../../Store/app-reducer";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {setRegistrationStatus} from "../../../../Store/registration-reducer";
+import {changeRegisterStatus} from "../../../../Store/registration-reducer";
 
 type FormikErrorType = {
     email?: string
@@ -25,7 +25,7 @@ export const Login = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(setRegistrationStatus(false))
+        dispatch(changeRegisterStatus(false))
     }, [dispatch])
 
     const formik = useFormik({

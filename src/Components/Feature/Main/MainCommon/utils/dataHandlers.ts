@@ -13,6 +13,11 @@ export const getDecksForUI = (decks: DeckType[] | null | undefined) => {
     let decksForUI: RenderDeckType[] | null = null
     if(decks) {
         decksForUI = decks.map(d => {
+            const name = (function (name: string) {
+                let temp = name.split("")
+                temp.splice(15)
+                return temp.join("")
+            }(d.name))
             const lastUpdate = (function (lastUpdate: string) {
                 let temp = lastUpdate.split("")
                 temp.splice(10)
@@ -25,7 +30,7 @@ export const getDecksForUI = (decks: DeckType[] | null | undefined) => {
                 return temp.join("")
             }(d.user_name))
             return {
-                name: d.name,
+                name: name,
                 cards: d.cardsCount,
                 lastUpdate: lastUpdate,
                 created: userName,
@@ -65,14 +70,8 @@ export const getCardsForUI = (cards: CardType[] | null) => {
                 temp.splice(10)
                 return temp.join("")
             }(c.updated))
-            const answer = (function (answer: string) {
-                let temp = answer.split("")
-                temp.splice(50)
-                temp.push(" ...")
-                return temp.join("")
-            }(c.answer))
             return {
-                answer: answer,
+                answer: c.answer,
                 question: c.question,
                 lastUpdate: lastUpdate,
                 grade: c.grade,

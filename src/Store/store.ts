@@ -1,39 +1,45 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunkMiddleware, {ThunkAction} from "redux-thunk";
-import {ProfileActionsType, profileReducer} from "./profile-reducer";
-import {AuthActionsType, authReducer} from "./auth-reducer";
-import {RegistrationActionsType, registrationReducer} from "./registration-reducer";
-import {RecoveryPassActionsType, recoveryPassReducer} from "./recovery-pass-reducer";
-import {AppActionsType, appReducer} from "./app-reducer";
+import {ProfileActionsType, profileSlice} from "./profile-reducer";
+import {AuthActionsType, authSlice} from "./auth-reducer";
+import {registerSlice, RegistrationActionsType} from "./registration-reducer";
+import {RecoveryPassActionsType, recoverySlice} from "./recovery-pass-reducer";
+import {AppActionsType, appSlice} from "./app-reducer";
 import {decksSlice} from "./decks-reducer";
 import {cardsSlice} from "./cards-reducer";
+import {learningSlice} from "./learning-reducer";
+import {configureStore} from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
-  profile: profileReducer,
-  auth: authReducer,
-  registration: registrationReducer,
-  recovery: recoveryPassReducer,
-  app: appReducer,
-  decks: decksSlice.reducer,
-  cards: cardsSlice.reducer
+    profile: profileSlice.reducer,
+    auth: authSlice.reducer,
+    registration: registerSlice.reducer,
+    recovery: recoverySlice.reducer,
+    app: appSlice.reducer,
+    decks: decksSlice.reducer,
+    cards: cardsSlice.reducer,
+    learning: learningSlice.reducer
 })
 
-export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+export const store = configureStore({
+    reducer: rootReducer,
+    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
+})
 
 // types
 export type AppStoreType = ReturnType<typeof rootReducer>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStoreType, unknown, AllAppActionsType>
 export type AllAppActionsType =
-  ProfileActionsType
-  | AuthActionsType
-  | RegistrationActionsType
-  | RecoveryPassActionsType
-  | AppActionsType
+    ProfileActionsType
+    | AuthActionsType
+    | RegistrationActionsType
+    | RecoveryPassActionsType
+    | AppActionsType
 export type AppDispatchType = typeof store.dispatch
 export type ThunkApiType = {
-  dispatch: AppDispatchType,
-  state: AppStoreType,
-  rejectValue: string
+    dispatch: AppDispatchType,
+    state: AppStoreType,
+    rejectValue: string
 }
 //@ts-ignore
 window.store = store

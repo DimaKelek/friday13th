@@ -4,12 +4,13 @@ import S from "./Registration.module.css"
 import Sc from "../AuthCommon/Styles/CommonStyles.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, Redirect} from "react-router-dom";
-import {signup} from "../../../../Store/registration-reducer";
 import {AppStoreType} from "../../../../Store/store";
 import {MyButton} from "../../../Common/MyButton/MyButton";
 import {MyTextInput} from "../../../Common/MyTextInput/MyTextInput";
 import {RequestStatusType} from "../../../../Store/app-reducer";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {login} from "../../../../Store/auth-reducer";
+import {registration} from "../../../../Store/registration-reducer";
 
 type RegistrationPropsType = {}
 
@@ -55,8 +56,8 @@ export const Registration: React.FC<RegistrationPropsType> = props => {
             return errors;
         },
         onSubmit: values => {
-            if(values.password === values.confirmedPassword) {
-                dispatch(signup({email: values.email, password: values.password}))
+            if (values.password === values.confirmedPassword) {
+                dispatch(registration({email: values.email, password: values.password}))
                 signupForm.resetForm()
             }
         },

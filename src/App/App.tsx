@@ -7,7 +7,7 @@ import {AppStoreType} from "../Store/store";
 import {ErrorSnackbar} from "../Components/Common/ErrorSnackbar/ErrorSnackbar";
 import {RequestStatusType} from "../Store/app-reducer";
 import {CircularProgress} from "@material-ui/core";
-import {me} from "../Store/auth-reducer";
+import {checkingAuthorization} from "../Store/auth-reducer";
 //раз два три
 export const App: React.FC<any> = props => {
     const status = useSelector<AppStoreType, RequestStatusType>(state => state.app.status)
@@ -15,7 +15,7 @@ export const App: React.FC<any> = props => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(me())
+        dispatch(checkingAuthorization())
     }, [dispatch])
 
     if (!isInitialized) {
